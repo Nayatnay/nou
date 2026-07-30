@@ -1408,7 +1408,7 @@ footer {
     .hero-content {
         background-image:
             linear-gradient(rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.02)),
-            url('../assets/hero-2.png');
+            url('../assets/hero-2.webp');
         padding: 1rem;
     }
 
