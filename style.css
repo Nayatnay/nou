@@ -41,9 +41,21 @@ main {
     justify-content: space-between;
     padding: 0rem 2rem;
     align-items: center;
-    background-color: #f1f1f1;
+    background-color: #000000;
     width: 100%;
     min-height: 60px;
+    color: white;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Estilo cuando hace scroll (se activa con JavaScript) */
+.tope.scrolled {
+    background-color: rgba(0, 0, 0, 0.85);
+    /* 0.85 es la transparencia (85%) */
+    backdrop-filter: blur(8px);
+    /* Efecto paño borroso moderno opcional */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    /* Una pequeña sombra sutil */
 }
 
 .navbar {
@@ -59,7 +71,7 @@ main {
     text-transform: uppercase;
     letter-spacing: 0.09em;
     text-decoration: none;
-    color: #717171;
+    color: #f1f1f1;
     font-weight: 400;
     font-size: .8rem;
     padding-bottom: 2px;
@@ -68,7 +80,7 @@ main {
 }
 
 .nav-links a:hover {
-    border-bottom: 2px solid #717171;
+    border-bottom: 2px solid #f1f1f1;
 }
 
 .logo img {
@@ -97,6 +109,7 @@ main {
 
 #contador {
     font-size: 0.9rem;
+    color: #f1f1f1;
 }
 
 /* --- HERO SECTION --- */
@@ -106,12 +119,10 @@ main {
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 0;
+    margin-top: 81px;
     font-size: 1.5rem;
     transition: height 0.5s ease-in-out;
     overflow: hidden;
-    margin-top: 60px;
-    /* <--- Esto empuja el hero hacia abajo para que la barra fija no lo tape */
 }
 
 .hero-content {
@@ -557,7 +568,7 @@ main {
 }
 
 .menu-toggle {
-    color: #000000;
+    color: #f1f1f1;
     border: none;
     padding: 0px 6px;
     cursor: pointer;
@@ -1387,12 +1398,21 @@ footer {
     }
 
     .nav-links {
-        display: none;
+        /* Reemplazamos display: none por el sistema de ocultado suave */
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        /* Pequeño efecto de deslizamiento hacia abajo */
+        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+
+        /* Tus estilos originales se quedan igual */
+        display: flex;
+        /* Ahora puede estar siempre en flex, pero invisible */
         position: absolute;
         top: 72px;
         left: 0;
         width: 100%;
-        background: #f9f9f9;
+        background: #000;
         flex-direction: column;
         padding: 20px;
         z-index: 999;
@@ -1402,7 +1422,14 @@ footer {
     }
 
     .nav-links.active {
-        display: flex;
+        /* Estado cuando se abre: se hace visible y baja a su posición */
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .hero {
+        margin-top: 72px;
     }
 
     .hero-content {
@@ -1489,7 +1516,11 @@ footer {
     }
 
     .nav-links a {
-        margin-bottom: 15px;
+        margin-bottom: 20px;
+        text-transform: capitalize;
+        font-size: .9rem;
+        font-weight: 800;
+        letter-spacing: normal;
     }
 
 }

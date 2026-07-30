@@ -576,6 +576,19 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+//-------- tope transparente al hace scroll **********//
+
+window.addEventListener('scroll', function() {
+    const header = document.querySelector('.tope');
+    
+    // Si la posición en Y del scroll es mayor a 50 píxeles...
+    if (window.scrollY > 50) {
+        header.classList.add('scrolled'); // Agrega la clase de transparencia
+    } else {
+        header.classList.remove('scrolled'); // La quita si vuelve arriba
+    }
+});
+
 /***************************** D I C C I O N A R I O S ************************/
 // Diccionario con los nombres reales de cada franela por colección y número/archivo
 const nombresFranelas = {
