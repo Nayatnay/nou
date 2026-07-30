@@ -581,7 +581,7 @@ main {
     font-size: 0.8rem;
     text-transform: uppercase;
     box-sizing: border-box;
-    
+
 }
 
 .page-header a {
@@ -850,7 +850,7 @@ footer {
     display: flex;
     gap: 40px;
     width: max-content;
-    animation: scrollInfinite 30s linear infinite;   
+    animation: scrollInfinite 30s linear infinite;
 }
 
 @keyframes scrollInfinite {
@@ -1029,7 +1029,7 @@ footer {
     margin: 0 auto 60px auto;
 }
 
-.related-section h2{
+.related-section h2 {
     font-size: 2rem;
     line-height: 2rem;
 }
@@ -1408,7 +1408,7 @@ footer {
     .hero-content {
         background-image:
             linear-gradient(rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.02)),
-            url('assets/hero-2.png');
+            url('assets/hero-2.webp');
         padding: 1rem;
     }
 
@@ -1484,8 +1484,12 @@ footer {
         padding: 1rem;
     }
 
-   .carousel-container {
-    margin: 0px 0px 40px 0px;
-}
+    .carousel-container {
+        margin: 0px 0px 40px 0px;
+    }
+
+    .nav-links a {
+        margin-bottom: 15px;
+    }
 
 }
