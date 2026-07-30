@@ -118,7 +118,7 @@ main {
     height: 100%;
     width: 100%;
     background-image: linear-gradient(rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.02)),
-        url('../assets/hero.webp');
+        url('assets/hero.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -1408,7 +1408,7 @@ footer {
     .hero-content {
         background-image:
             linear-gradient(rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.02)),
-            url('../assets/hero-2.webp');
+            url('assets/hero-2.webp');
         padding: 1rem;
     }
 
