@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nou | Colección Activa</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="assets/zorrico.png">
+</head>
+
+<body>
+
+    <div class="tope">
+        <div class="logo">
+            <a href="index.html">
+                <img src="assets/logo.png" width="128px" alt="Logo de Nou">
+            </a>
+        </div>
+        <nav class="navbar">
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html#colecciones">Colecciones</a>
+                <a href="index.html#bajopedido">Diseños bajo pedido</a>
+                <a href="index.html#personalizadas">Crea tu Nou</a>
+            </div>
+        </nav>
+        <button class="btn-carrito" onclick="abrirModal()">
+            <img src="assets/car-icono.png" alt="Carrito">
+            <span id="contador">0</span>
+        </button>
+    </div>
+
+    <!-- Migas de pan / Header de la página -->
+    <section class="page-header">
+        <a href="index.html">Inicio</a>
+        <span class="page-divider">/</span>
+        <p class="page-title" id="titulo-pagina-coleccion">Colección Actual</p>
+    </section>
+
+    <!-- Contenedor Principal del Grid de la Colección -->
+    <main class="coleccion-activa-section">
+        <div class="coleccion-header">
+            <h2 class="titulos" id="titulo-coleccion-principal">Colección Actual</h2>
+            <p class="coleccion-sub">Piezas diseñadas con absoluta simplicidad. Algodón 100% de alta calidad.</p>
+        </div>
+
+        <div id="grid-coleccion-activa" class="galeria-grid">
+            <!-- Las franelas de la colección se cargarán aquí automáticamente -->
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+
+            <div class="social-links">
+                <a href="https://instagram.com/somos.nou" target="_blank" rel="noopener noreferrer">
+                    <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                </a>
+                <a href="https://tiktok.com/@somos.nou" target="_blank" rel="noopener noreferrer">
+                    <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Nuevo Formulario de Suscripción -->
+            <div class="newsletter-section-footer">
+                <form class="newsletter-form ajax-form" action="https://formspree.io/f/xbdnpazj" method="POST">
+                    <input type="email" name="email" placeholder="Tu correo electrónico" required>
+                    <button type="submit">Suscribirme</button>
+                </form>
+
+                <div class="form-success-msg">
+                    ¡Gracias por suscribirte! Te mantendremos al tanto.
+                </div>
+            </div>
+
+            <div class="brand">
+                <p class="copyright">© 2026 NOU. Tu web para vestir exclusividad en algodón 100%</p>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- ICONO WHATSAPP -->
+    <a href="https://wa.me/584126067734?text=Hola%20Nou,%20me%20gustaría%20más%20información" class="whatsapp-float"
+        target="_blank">
+        <svg fill="#000000" width="32px" height="32px" viewBox="0 0 32 32" version="1.1"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M26.576 5.363c-2.69-2.69-6.406-4.354-10.511-4.354-8.209 0-14.865 6.655-14.865 14.865 0 2.732 0.737 5.291 2.022 7.491l-0.038-0.070-2.109 7.702 7.879-2.067c2.051 1.139 4.498 1.809 7.102 1.809h0.006c8.209-0.003 14.862-6.659 14.862-14.868 0-4.103-1.662-7.817-4.349-10.507l0 0zM16.062 28.228h-0.005c-0 0-0.001 0-0.001 0-2.319 0-4.489-0.64-6.342-1.753l0.056 0.031-0.451-0.267-4.675 1.227 1.247-4.559-0.294-0.467c-1.185-1.862-1.889-4.131-1.889-6.565 0-6.822 5.531-12.353 12.353-12.353s12.353 5.531 12.353 12.353c0 6.822-5.53 12.353-12.353 12.353h-0z">
+            </path>
+        </svg>
+        <span>Escríbenos</span>
+    </a>
+
+    <!-- Modal del Carrito -->
+    <div id="modalCarrito" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar" onclick="cerrarModal()">&times;</span>
+            <h3>Tu Lista de Compras</h3>
+            <ul id="lista-carrito"></ul>
+            <button onclick="enviarPedido()">Finalizar pedido por WhatsApp</button>
+        </div>
+    </div>
+
+    <!-- ISOTIPO FLOTANTE FIJO CON MENSAJE -->
+    <div class="zorrito-flotante">
+        <div class="bocadillo-mensaje">¡Hola! ¿Diseñamos algo juntos?</div>
+        <a href="index.html#personalizadas">
+            <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px" y="0px" viewBox="0 0 1080 1080" style="enable-background:new 0 0 1080 1080;"
+                xml:space="preserve">
+                <g class="cabeza-zorrito">
+                    <path d="M107,653.5c37.1-55.3,74.8-110.3,110.8-166.3c4.2-6.5,2.4-19.9-1.2-28c-49.4-109.9-40.1-220.3-5.3-333.4
+	c85.5,33.4,159.6,79.4,214.1,152c17.4,23.2,31.7,33.3,64.6,28.7c136.1-18.7,255.2,16.5,351.3,120.6
+	c64.9,70.3,126.1,142.6,166.9,224.4C945,684.7,881.7,715.2,821,750.2c-91.2,52.5-160.8,128.8-223,212.5
+	c-6.6,8.9-16.2,15.6-24.4,23.3c-10.7,0-21.5,0-32.2,0c-19.6-23.8-39.2-47.7-58.7-71.5C382.6,792.3,256.6,708.2,107,658.8
+	C107,657,107,655.2,107,653.5z M622.9,893.7c91.5-119.9,208.9-203.9,353.3-252.8c-24.8-32-47.8-62.6-72-92.2
+	c-4.1-5-13.8-8.7-20.3-7.8c-84.5,11.2-159.7,40.5-213,111.8c-44.7,59.8-62.8,128.6-73.2,200.9C594.7,874.8,597.1,888.3,622.9,893.7z
+	 M498.6,893.4c25.7-4.3,29.7-19,25.3-39.4c-3.9-18.3-6.1-37-10-55.3C483.7,655.3,400,565.9,252.5,542.7c-11.5-1.8-28.9,0-35.5,7.4
+	c-25.4,28.4-47.6,59.7-72,91.3C290.9,689.2,407.2,775.5,498.6,893.4z M376.1,346.6c-32.4-60-77.4-103.2-135.4-138.2
+	c-16.7,80.8-10.9,154.9,27.7,228.3C305.3,406,339.9,377,376.1,346.6z" />
+                </g>
+                <g id="hoja">
+                    <path d="M944,95c28.4,63.8,10.9,162.6-40.5,208.8c-30,26.9-66,47.5-100.9,68.3c-20.8,12.4-58.3-12.4-59.7-36.7
+	c-5.7-98.8,40.7-173.9,132.7-214C898,111.7,921.3,103.7,944,95z M881.9,188.5C832.7,211.2,772.3,304,769.2,348.3
+	C803.4,299.8,840.6,247.1,881.9,188.5z" />
+                </g>
+            </svg>
+        </a>
+    </div>
+
+    <script src="script.js" defer></script>
+</body>
+
+</html>
