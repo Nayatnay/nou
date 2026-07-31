@@ -37,7 +37,7 @@
     <section class="page-header">
         <a href="index.html">Inicio</a>
         <span class="page-divider">/</span>
-        <p class="page-title">Detalles de la franela</p>
+        <p class="page-title">Detalles de la pieza</p>
     </section>
 
     <!-- Estructura básica de detalle.html -->
@@ -51,13 +51,16 @@
         </div>
 
         <div class="info-producto">
-            <span id="nombre-coleccion-detalle" class="etiqueta-coleccion"></span>
-            <h1 id="titulo-producto"></h1>
-            <p id="precio-producto" class="precio-detalle"></p>
-            <p id="descripcion-producto"></p>
+
+            <div><span id="nombre-coleccion-detalle" class="etiqueta-coleccion"></span>
+                <h1 id="titulo-producto"></h1>
+                <p id="precio-producto" class="precio-detalle"></p>
+                <p id="descripcion-producto"></p>
+            </div>
+
             <!-- Selector de Color -->
             <div class="select-group">
-                <label>Color de la franela:</label>
+                <label>Color:</label>
                 <div class="color-options">
                     <button type="button" class="color-btn active"
                         onclick="cambiarColorDetalle('blanco')">Blanco</button>
@@ -70,7 +73,7 @@
 
             <!-- Selector de Talla -->
             <div class="select-group">
-                <label for="talla-detalle">Talla de la franela:</label>
+                <label for="talla-detalle">Talla:</label>
                 <select id="talla-detalle">
                     <option value="2">2</option>
                     <option value="4">4</option>
@@ -103,7 +106,7 @@
 
     <!-- Más de esta coleccion -->
     <section id="otras-colecciones" class="related-section">
-        <h2>Más de esta colección</h2>
+        <h2 class="titulos">Más de esta colección</h2>
         <div id="grid-relacionados" class="galeria-grid"></div>
     </section>
 

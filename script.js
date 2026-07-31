@@ -389,11 +389,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const tituloPagina = document.querySelector('.page-title'); // <- Nuevo: Seleccionamos el título de la página
 
         // 1. Cargar la imagen principal del producto (miniatura)
-        if (imgProd) imgProd.src = `assets/${coleccion}/${id}.webp`;
+        if (imgProd) imgProd.src = `assets/grande/${coleccion}/${id}.webp`;
 
         // 1.1 Construimos y asignamos la URL dinámica para el href (Imagen grande)
         if (enlaceProducto) {
-            enlaceProducto.href = `assets/grande/${coleccion}/${id}.png`;
+            enlaceProducto.href = `assets/grande/${coleccion}/${id}.webp`;
         }
 
         // 2. Mostrar el nombre de la colección junto a la imagen
@@ -522,7 +522,7 @@ function agregarDesdeDetalle() {
     if (!boton) return;
 
     const textoOriginal = boton.innerHTML;
-    boton.innerHTML = '¡Agregado al carrito! ✓';
+    boton.innerHTML = '¡Agregado al carrito!';
     boton.classList.add('btn-exito');
     boton.disabled = true;
 
@@ -578,9 +578,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //-------- tope transparente al hace scroll **********//
 
-window.addEventListener('scroll', function() {
+window.addEventListener('scroll', function () {
     const header = document.querySelector('.tope');
-    
+
     // Si la posición en Y del scroll es mayor a 50 píxeles...
     if (window.scrollY > 50) {
         header.classList.add('scrolled'); // Agrega la clase de transparencia
@@ -588,6 +588,33 @@ window.addEventListener('scroll', function() {
         header.classList.remove('scrolled'); // La quita si vuelve arriba
     }
 });
+
+/**** bocadillo mensaje del itopipo cada 60 segundos */
+
+document.addEventListener("DOMContentLoaded", function () {
+    const zorrito = document.querySelector('.zorrito-flotante');
+
+    if (!zorrito) return;
+
+    function mostrarMensajeAutomatico() {
+        // Solo se ejecuta si la pantalla es menor o igual a 768px (móviles/tablets)
+        if (window.innerWidth <= 768) {
+            zorrito.classList.add('mostrar-alerta');
+
+            // El mensaje se vuelve a ocultar automáticamente después de 3 segundos
+            setTimeout(function () {
+                zorrito.classList.remove('mostrar-alerta');
+            }, 3000);
+        }
+    }
+
+    // Configura el temporizador para que se repita cada 60 segundos (60000 milisegundos)
+    setInterval(mostrarMensajeAutomatico, 60000);
+
+    // (Opcional) Muestra el mensaje por primera vez a los 5 segundos de cargar la página
+    setTimeout(mostrarMensajeAutomatico, 5000);
+});
+
 
 /***************************** D I C C I O N A R I O S ************************/
 // Diccionario con los nombres reales de cada franela por colección y número/archivo

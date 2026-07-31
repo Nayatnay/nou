@@ -15,7 +15,7 @@ body {
 
 body {
     background-color: #f1f1f1;
-    color: rgb(71, 71, 71);
+    color: #000000;
     line-height: 1.6;
     font-family: 'Poppins', 'Helvetica', 'Arial', sans-serif;
     font-weight: 400;
@@ -180,10 +180,9 @@ main {
 }
 
 .titulos {
-    font-weight: 600;
+    font-weight: 800;
     font-size: 2rem;
     line-height: 1.8rem;
-    padding: 0 2rem;
 }
 
 .galeria-productos {
@@ -345,7 +344,7 @@ main {
 .select-group {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: .5rem;
     width: 100%;
     box-sizing: border-box;
 }
@@ -356,15 +355,23 @@ main {
     color: #333;
 }
 
-.customizer-controls select {
+.select-group select {
     padding: 12px;
     border: 1px solid #ccc;
-    border-radius: 6px;
+    border-radius: 5px;
     background: #fff;
     font-size: 14px;
     cursor: pointer;
     width: 100%;
     box-sizing: border-box;
+}
+
+.select-group button {
+    border-radius: 5px;
+}
+
+.select-group input {
+    border-radius: 5px;
 }
 
 /* Estilos de botones de color (Unificados y responsivos) */
@@ -444,7 +451,7 @@ main {
     position: fixed;
     bottom: 40px;
     right: 40px;
-    background-color: #1a1a1a;
+    background-color: #333;
     color: #25d366;
     padding: 12px 20px;
     border-radius: 5px;
@@ -582,8 +589,7 @@ main {
     position: fixed;
     top: 80px;
     z-index: 2000;
-    background-color: #ffffff;
-    border-bottom: 1px solid #e5e5e5;
+    background-color: #333;
     width: 100%;
     padding: 1rem 2rem;
     display: flex;
@@ -592,18 +598,18 @@ main {
     font-size: 0.8rem;
     text-transform: uppercase;
     box-sizing: border-box;
-
+    color: #f1f1f1;
 }
 
 .page-header a {
     text-decoration: none;
-    color: grey;
+    color: #f1f1f1;
     transition: color 0.3s ease;
     letter-spacing: 0.2rem;
 }
 
 .page-header a:hover {
-    color: #333;
+    color: #cccccc;
 }
 
 .page-title {
@@ -620,39 +626,25 @@ main {
     justify-content: center;
     gap: 3rem;
     padding: 6rem 2rem;
-    max-width: 1000px;
-    margin-top: 140px;
+    margin-top: 132px;
     margin-left: auto;
     margin-right: auto;
+    max-width: 1200px;
     box-sizing: border-box;
-}
-
-#contenedor-detalle img {
-    max-width: 450px;
-    width: 100%;
-    height: auto;
-    background-color: #f4f4f4;
 }
 
 /* --- BLOQUE DE TEXTOS Y CONTROLES (COMPACTO) --- */
 .info-producto {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    /* Manda todo (títulos, precios, selectores) hacia la izquierda automáticamente */
+    align-items: flex-start;    /* Manda todo (títulos, precios, selectores) hacia la izquierda automáticamente */
     text-align: left;
-    gap: 0.5rem;
-    /* Mantiene la separación compacta */
+    gap: 1rem;  /* Mantiene la separación compacta */
 }
 
 .info-producto h1 {
-    margin: 0;
-    font-size: 1.8rem;
-    line-height: 1.2;
-}
-
-.info-producto p {
-    margin: 0;
+    font-weight: 800;
+    line-height: 1.1;
 }
 
 /* Estilo para el precio en la página de detalles */
@@ -674,14 +666,15 @@ main {
 
 .btn-comprar {
     width: 100%;
-    padding: 0.8rem 2rem;
+    padding: 0.8rem 1rem;
     border: 1px solid #333;
-    background-color: transparent;
+    border-radius: 5px;
     font-family: inherit;
     font-size: 0.9rem;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: #333;
+    letter-spacing: 0.10em;
+    color: #f1f1f1;
     cursor: pointer;
     display: inline-block;
     text-decoration: none;
@@ -689,15 +682,16 @@ main {
     box-sizing: border-box;
     margin-top: 0.5rem;
     /* Pequeño respiro limpio antes del botón */
+    background-color: #000000;
 }
 
 .btn-comprar:hover {
     background-color: #333;
-    color: #ffffff;
+    color: #f1f1f1;
 }
 
 .btn-comprar.btn-exito {
-    background-color: #28a745 !important;
+    background-color: #00811e !important;
     color: #ffffff !important;
     transition: background-color 0.3s ease;
     cursor: default;
@@ -709,7 +703,8 @@ footer {
     font-size: 0.85rem;
     position: relative;
     box-sizing: border-box;
-    background-color: white;
+    background-color: rgba(0, 0, 0, 0.90);   /* 0.85 es la transparencia (85%) */
+    
 }
 
 .footer-content {
@@ -718,16 +713,15 @@ footer {
     align-items: center;
     justify-content: center;
     margin: 0 auto;
+    color: #f1f1f1;
     box-sizing: border-box;
 }
 
 .social-links {
     display: flex;
     align-items: center;
-    gap: 12px;
-    /* Espacio entre los iconos */
-    line-height: 0;
-    /* Elimina cualquier altura de línea fantasma */
+    gap: 12px;    /* Espacio entre los iconos */
+    line-height: 0; /* Elimina cualquier altura de línea fantasma */
 }
 
 .social-links a {
@@ -744,8 +738,8 @@ footer {
     text-decoration: none;
     border-radius: 8px;
     stroke: white;
-    background-color: #333;
-    margin: 0 15px;
+    background-color: #666;
+    margin: 10px;
     transition: transform 0.3s ease, background-color 0.3s ease;
     display: block;
 }
@@ -773,7 +767,6 @@ footer {
     align-items: center;
     justify-content: center;
     text-align: center;
-    background-color: white;
     width: 100%;
     box-sizing: border-box;
 
@@ -799,7 +792,7 @@ footer {
 
 .newsletter-section p {
     margin-bottom: .5rem;
-    color: #555;
+    color: #333;
 }
 
 .newsletter-form {
@@ -825,7 +818,7 @@ footer {
 
 .newsletter-form button {
     padding: 10px 20px;
-    background-color: #333;
+    background-color: #666;
     color: white;
     border: none;
     border-radius: 8px;
@@ -843,7 +836,7 @@ footer {
     display: none;
     margin-top: 8px;
     font-size: 0.85rem;
-    color: #696969;
+    color: #666;
     font-weight: 400;
 }
 
@@ -925,7 +918,7 @@ footer {
 }
 
 .color-hint {
-    color: #424242;
+    color: #666;
     font-size: 0.75rem;
     line-height: 1.4;
     margin-top: 2px;
@@ -958,7 +951,7 @@ footer {
 }
 
 .info-producto .color-btn.active {
-    background-color: #9b9b9b;
+    background-color: #333;
     color: #fff;
 }
 
@@ -1035,21 +1028,17 @@ footer {
 
 /* Sección de productos relacionados */
 .related-section {
-    padding: 1rem;
+    padding: 4rem 2rem;
     max-width: 1200px;
-    margin: 0 auto 60px auto;
-}
-
-.related-section h2 {
-    font-size: 2rem;
-    line-height: 2rem;
+    margin: 0 auto;
+    border-top: 1px solid black;
 }
 
 .galeria-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 1.5rem;
-    margin-top: 1.5rem;
+    margin-top: 2rem;
 }
 
 .producto-relacionado {
@@ -1163,64 +1152,89 @@ footer {
     color: #fff;
 }
 
-/* --- ISOTIPO FLOTANTE FIJO CON MENSAJE ARRIBA --- */
+/* --- ISOTIPO FLOTANTE EN EL MEDIO IZQUIERDO DENTRO DE UNA PESTAÑA --- */
 .zorrito-flotante {
     position: fixed;
-    bottom: 30px;
-    left: 50px;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
     z-index: 2500;
-    display: block;
-    /* Cambiamos a block para controlar el cuadro flotante */
-    width: auto;
-    height: auto;
-    animation: flotarSuave 4s ease-in-out infinite;
+    
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-left: none;
+    border-radius: 0 10px 10px 0;
+    
+    padding: 5px;
+    box-shadow: 3px 4px 15px rgba(0, 0, 0, 0.08);
+    
+    animation: flotarLateral 4s ease-in-out infinite;
+    transition: background-color 0.3s ease, padding 0.3s ease;
+}
+
+/* Color negro para el isotipo */
+.zorrito-flotante .cabeza-zorrito path,
+.zorrito-flotante #hoja path {
+    fill: #000000;
+}
+
+/* --- ENLACE CON TAMAÑO ESTRICTO (Evita que se alargue) --- */
+.zorrito-flotante a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;  /* Ancho estricto */
+    height: 42px; /* Alto estricto bloqueado */
+    text-decoration: none;
 }
 
 /* Estilos para el SVG en línea */
 .zorrito-flotante svg {
-    width: 70px;
-    height: 70px;
+    width: 100%;
+    height: 100%;
     display: block;
     cursor: pointer;
     overflow: visible;
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Efecto al pasar el cursor por encima del zorrito */
-.zorrito-flotante:hover svg {
-    transform: scale(1.15) rotate(5deg);
-}
-
-/* --- ESTILO DEL BOCADILLO SOBRE LA CABEZA --- */
+/* --- ESTILO DEL BOCADILlO LATERAL --- */
 .bocadillo-mensaje {
     position: absolute;
-    bottom: 85px;
-    /* Lo eleva por encima de los 70px del zorrito */
-    left: 15px;
-    /* Lo desplaza ligeramente hacia la derecha de la esquina izquierda */
+    left: 65px; /* Se coloca justo a la derecha del isotipo */
+    top: 50%;
+    transform: translateY(-50%) translateX(-8px);
+    
     background-color: #000000;
     color: #ffffff;
-    padding: 8px 14px;
-    border-radius: 6px;
-    font-size: 0.8rem;
-    letter-spacing: 0.05em;
+    padding: 7px 12px;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
     white-space: nowrap;
 
-    /* Inicialmente oculto con un pequeño desplazamiento vertical */
+    /* Oculto por defecto */
     opacity: 0;
     visibility: hidden;
-    transform: translateY(8px);
     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    pointer-events: none; /* Evita interferencias en móviles */
 }
 
-/* --- MOSTRAR EL MENSAJE AL PASAR EL MOUSE --- */
+/* --- MOSTRAR MENSAJE Y EXPANDIR PESTAÑA AL HACER HOVER --- */
+.zorrito-flotante:hover {
+    background-color: #ffffff;
+    padding-right: 16px;
+}
+
 .zorrito-flotante:hover .bocadillo-mensaje {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
-    /* Se desliza suavemente hacia arriba hasta su posición final */
+    transform: translateY(-50%) translateX(0);
+}
+
+.zorrito-flotante:hover svg {
+    transform: scale(1.1) rotate(5deg);
 }
 
 /* --- ANIMACIÓN DE LA HOJA CON BRISA --- */
@@ -1230,16 +1244,12 @@ footer {
 }
 
 @keyframes brisaHoja {
-
-    0%,
-    100% {
+    0%, 100% {
         transform: rotate(0deg);
     }
-
     50% {
         transform: rotate(14deg);
     }
-
     75% {
         transform: rotate(-6deg);
     }
@@ -1249,56 +1259,68 @@ footer {
     animation: brisaHoja 1.2s ease-in-out infinite;
 }
 
-@keyframes flotarSuave {
-
-    0%,
-    100% {
-        transform: translateY(0);
+@keyframes flotarLateral {
+    0%, 100% {
+        transform: translateY(-50%) translateX(0);
     }
-
     50% {
-        transform: translateY(-6px);
+        transform: translateY(-50%) translateX(4px);
     }
 }
 
-/* --- EFECTO DE CLIC ELEGANTE Y LIMPIO --- */
-.zorrito-flotante a {
-    display: block;
-    text-decoration: none;
+.zorrito-flotante a:active svg {
+    transform: scale(0.94) !important;
+    transition: transform 0.08s ease !important;
 }
 
-/* Al hacer clic, anulamos cualquier transformación previa de hover y dejamos solo el sutil hundimiento */
-.zorrito-flotante a:active svg {
-    transform: scale(0.96) !important;
-    transition: transform 0.08s ease !important;
+/* --- CLASE ACTIVADA POR JAVASCRIPT PARA MÓVILES --- */
+.zorrito-flotante.mostrar-alerta {
+    background-color: #ffffff !important;
+    padding-right: 16px !important;
+}
+
+.zorrito-flotante.mostrar-alerta .bocadillo-mensaje {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(-50%) translateX(0) !important;
+}
+
+.zorrito-flotante.mostrar-alerta svg {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* --- MEDIA QUERY PARA PANTALLAS PEQUEÑAS --- */
+@media (max-width: 768px) {
+    .zorrito-flotante {
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        animation: flotarLateral 4s ease-in-out infinite;
+    }
+
+    .zorrito-flotante a {
+        width: 38px;
+        height: 38px;
+    }
+
+    .bocadillo-mensaje {
+        left: 45px; 
+        font-size: 0.7rem;
+        padding: 5px 10px;
+        max-width: 160px;
+        white-space: normal; /* Permite salto de línea si es necesario */
+    }
 }
 
 .etiqueta-coleccion {
     font-size: 1.8rem;
     text-transform: uppercase;
     line-height: 1.1;
-    color: #000;
-    font-weight: 600;
-
+    font-weight: 800;
 }
 
 /* Ajuste para dispositivos móviles */
 @media (max-width: 768px) {
-    .zorrito-flotante {
-        bottom: 20px;
-        left: 20px;
-        animation: none;
-    }
-
-    .zorrito-flotante svg {
-        width: 50px;
-        height: 50px;
-    }
-
-    .bocadillo-mensaje {
-        display: none;
-    }
-
     .newsletter-section h3 {
         font-size: 1.5rem;
     }
@@ -1306,9 +1328,9 @@ footer {
 }
 
 .imagen-con-coleccion {
-    max-width: 400px;
-    /* Ajusta al tamaño que prefieras */
+    max-width: 500px;
     width: 100%;
+    background-color: #f4f4f4;
 }
 
 .imagen-con-coleccion img {
@@ -1316,17 +1338,14 @@ footer {
     height: auto;
     display: block;
     cursor: zoom-in;
-    /* Cambia el cursor para indicar que es interactiva */
+    background: transparent;
+    /* Evita cualquier color propio en la etiqueta img */
     transition: opacity 0.2s ease;
 }
 
 .imagen-con-coleccion img:hover {
     opacity: 0.9;
 }
-
-
-
-
 
 /* --- RESPONSIVE / MEDIA QUERIES --- */
 @media (min-width: 769px) {
@@ -1348,7 +1367,6 @@ footer {
 
     .titulos {
         font-size: 1.5rem;
-        padding: 0;
     }
 
     .tope {
@@ -1412,7 +1430,7 @@ footer {
         top: 72px;
         left: 0;
         width: 100%;
-        background: #000;
+        background-color: rgba(0, 0, 0, 0.95);   /* 0.85 es la transparencia (85%) */
         flex-direction: column;
         padding: 20px;
         z-index: 999;
@@ -1454,12 +1472,9 @@ footer {
     #contenedor-detalle {
         flex-direction: column;
         /* En móvil se apilan verticalmente */
+        margin-top: 124px;
         align-items: center;
-        padding: 2rem 1rem;
-    }
-
-    #contenedor-detalle img {
-        max-width: 100%;
+        padding: 2rem;
     }
 
     #personalizadas {
@@ -1521,6 +1536,10 @@ footer {
         font-size: .9rem;
         font-weight: 800;
         letter-spacing: normal;
+    }
+
+    .related-section {
+        padding: 2rem;
     }
 
 }
