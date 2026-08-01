@@ -39,7 +39,7 @@
                 <h1></h1>
                 <p></p>
             </div>
-            
+
             <a href="coleccion.html" class="btn-main">Ver más</a>
         </div>
     </header>
@@ -47,11 +47,14 @@
     <!-- Contenedor de Secciones -->
     <main>
         <section id="colecciones">
-            <h2 class="titulos">Nuestras colecciones</h2>
+            <h2 class="titulos">Nuestras Colecciones</h2>
+
+            <!-- Botón Izquierdo para mover las colecciones -->
+            <button class="carrusel-btn-prev" onclick="moverCarruselColecciones(-1)">&#10094;</button>
+
             <div class="galeria-productos">
                 <div class="producto" id="carrusel-holamundo">
                     <div class="imagenes-container">
-                        <!-- Solo la primera es visible inicialmente -->
                         <img src="assets/holamundo/0.webp" class="activa" alt="Colección Hola Mundo"
                             onclick="verDetalle('holamundo', 0)">
                         <img src="assets/holamundo/1.webp" alt="Colección Hola Mundo"
@@ -70,9 +73,9 @@
                     <button class="prev" onclick="cambiarImagen('carrusel-holamundo', -1)">&#10094;</button>
                     <button class="next" onclick="cambiarImagen('carrusel-holamundo', 1)">&#10095;</button>
                 </div>
+
                 <div class="producto" id="carrusel-mjlegacy">
                     <div class="imagenes-container">
-                        <!-- Solo la primera es visible inicialmente -->
                         <img src="assets/mjlegacy/0.webp" class="activa" alt="Colección mjlegacy"
                             onclick="verDetalle('mjlegacy', 0)">
                         <img src="assets/mjlegacy/1.webp" alt="Colección mjlegacy" onclick="verDetalle('mjlegacy', 1)">
@@ -83,9 +86,9 @@
                     <button class="prev" onclick="cambiarImagen('carrusel-mjlegacy', -1)">&#10094;</button>
                     <button class="next" onclick="cambiarImagen('carrusel-mjlegacy', 1)">&#10095;</button>
                 </div>
+
                 <div class="producto" id="carrusel-mandalorian">
                     <div class="imagenes-container">
-                        <!-- Solo la primera es visible inicialmente -->
                         <img src="assets/mandalorian/0.webp" class="activa" alt="Colección mandalorian"
                             onclick="verDetalle('mandalorian', 0)">
                         <img src="assets/mandalorian/1.webp" alt="Colección mandalorian"
@@ -102,9 +105,9 @@
                     <button class="prev" onclick="cambiarImagen('carrusel-mandalorian', -1)">&#10094;</button>
                     <button class="next" onclick="cambiarImagen('carrusel-mandalorian', 1)">&#10095;</button>
                 </div>
+
                 <div class="producto" id="carrusel-chess">
                     <div class="imagenes-container">
-                        <!-- Solo la primera es visible inicialmente -->
                         <img src="assets/chess/0.webp" class="activa" alt="Colección chess"
                             onclick="verDetalle('chess', 0)">
                         <img src="assets/chess/1.webp" alt="Colección chess" onclick="verDetalle('chess', 1)">
@@ -114,9 +117,9 @@
                     <button class="prev" onclick="cambiarImagen('carrusel-chess', -1)">&#10094;</button>
                     <button class="next" onclick="cambiarImagen('carrusel-chess', 1)">&#10095;</button>
                 </div>
+
                 <div class="producto" id="carrusel-seriefine">
                     <div class="imagenes-container">
-                        <!-- Solo la primera es visible inicialmente -->
                         <img src="assets/seriefine/0.webp" class="activa" alt="Colección seriefine"
                             onclick="verDetalle('seriefine', 0)">
                         <img src="assets/seriefine/1.webp" alt="Colección seriefine"
@@ -131,9 +134,9 @@
                     <button class="prev" onclick="cambiarImagen('carrusel-seriefine', -1)">&#10094;</button>
                     <button class="next" onclick="cambiarImagen('carrusel-seriefine', 1)">&#10095;</button>
                 </div>
+
                 <div class="producto" id="carrusel-soccer">
                     <div class="imagenes-container">
-                        <!-- Solo la primera es visible inicialmente -->
                         <img src="assets/soccer/0.webp" class="activa" alt="Colección Soccer"
                             onclick="verDetalle('soccer', 0)">
                         <img src="assets/soccer/1.webp" alt="Colección Soccer" onclick="verDetalle('soccer', 1)">
@@ -143,12 +146,16 @@
                         <img src="assets/soccer/5.webp" alt="Colección Soccer" onclick="verDetalle('soccer', 5)">
                         <img src="assets/soccer/6.webp" alt="Colección Soccer" onclick="verDetalle('soccer', 6)">
                         <img src="assets/soccer/7.webp" alt="Colección Soccer" onclick="verDetalle('soccer', 7)">
-                        <img src="assets/soccer/8.webp" alt="Colección Soccer" onclick="verDetalle('soccer', 8)">   
+                        <img src="assets/soccer/8.webp" alt="Colección Soccer" onclick="verDetalle('soccer', 8)">
                     </div>
                     <button class="prev" onclick="cambiarImagen('carrusel-soccer', -1)">&#10094;</button>
                     <button class="next" onclick="cambiarImagen('carrusel-soccer', 1)">&#10095;</button>
                 </div>
+
             </div>
+
+            <!-- Botón Derecho para mover las colecciones -->
+            <button class="carrusel-btn-next" onclick="moverCarruselColecciones(1)">&#10095;</button>
         </section>
 
 

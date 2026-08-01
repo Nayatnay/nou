@@ -609,12 +609,58 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Configura el temporizador para que se repita cada 60 segundos (60000 milisegundos)
-    setInterval(mostrarMensajeAutomatico, 60000);
+    setInterval(mostrarMensajeAutomatico, 180000);
 
     // (Opcional) Muestra el mensaje por primera vez a los 5 segundos de cargar la página
     setTimeout(mostrarMensajeAutomatico, 5000);
 });
 
+/********************* CARRUSEL DE LAS COLECCIONES EN INDEX */////
+
+// --- 1. Cambiar la imagen activa dentro de una tarjeta de colección ---
+function cambiarImagen(idCarrusel, direccion) {
+    const contenedor = document.getElementById(idCarrusel);
+    const imagenes = contenedor.querySelectorAll('.imagenes-container img');
+    let indiceActual = 0;
+
+    // Encontrar cuál imagen está activa actualmente
+    imagenes.forEach((img, index) => {
+        if (img.classList.contains('activa')) {
+            indiceActual = index;
+        }
+    });
+
+    // Quitar la clase activa de la imagen actual
+    imagenes[indiceActual].classList.remove('activa');
+
+    // Calcular el nuevo índice (con loop infinito circular)
+    let nuevoIndice = indiceActual + direccion;
+    if (nuevoIndice >= imagenes.length) {
+        nuevoIndice = 0;
+    } else if (nuevoIndice < 0) {
+        nuevoIndice = imagenes.length - 1;
+    }
+
+    // Activar la nueva imagen
+    imagenes[nuevoIndice].classList.add('activa');
+}
+
+// --- 2. Mover la galería completa de colecciones horizontalmente ---
+function moverCarruselColecciones(direccion) {
+    const galeria = document.querySelector('.galeria-productos');
+    
+    // Tomamos el ancho de la primera tarjeta más su gap (20px) para calcular cuánto desplazar
+    const tarjeta = galeria.querySelector('.producto');
+    if (!tarjeta) return;
+    
+    const anchoTarjeta = tarjeta.offsetWidth + 20; 
+    
+    // Desplaza la galería el equivalente al ancho de una tarjeta multiplicado por la dirección (-1 o 1)
+    galeria.scrollBy({
+        left: anchoTarjeta * direccion,
+        behavior: 'smooth'
+    });
+}
 
 /***************************** D I C C I O N A R I O S ************************/
 // Diccionario con los nombres reales de cada franela por colección y número/archivo

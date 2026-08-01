@@ -151,7 +151,7 @@ main {
 }
 
 .btn-main {
-    padding: 0.8rem 2rem;
+    padding: 0.7rem 2rem;
     border-radius: 5px;
     background-color: white;
     font-family: inherit;
@@ -170,11 +170,6 @@ main {
     color: #ffffff;
 }
 
-/* --- COLECCIONES Y PRODUCTOS --- */
-#colecciones {
-    padding: 2rem;
-}
-
 #bajopedido h2 {
     padding: 0 4rem;
 }
@@ -185,48 +180,162 @@ main {
     line-height: 1.8rem;
 }
 
-.galeria-productos {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
-    gap: 1rem;
-    margin-top: 40px;
-}
-
-.producto {
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 1rem;
-    transition: transform 0.3s ease;
-    background-color: #e7e7e7;
-    border-radius: 0;
+/* --- CONTENEDOR GENERAL DE LA SECCIÓN COLECCIONES --- */
+#colecciones {
     position: relative;
-}
-
-.producto button:hover {
-    background: #ccc;
-}
-
-.producto img {
-    max-width: 100%;
-    object-fit: cover;
-    height: auto;
-    transition: transform 0.3s ease;
-    background-color: white;
-}
-
-.producto img:hover {
-    transform: scale(1.02);
-}
-
-.imagenes-container img {
-    display: none;
     width: 100%;
+    max-width: 1820px; /* Ancho máximo exacto para alojar cómodamente hasta 6 tarjetas + gaps */
+    margin: 0 auto;    /* Mantiene centrado el carrusel en la pantalla */
+    padding: 4rem 2rem;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* --- GALERÍA CARRUSEL --- */
+.galeria-productos {
+    display: flex;
+    justify-content: center; /* Centra las tarjetas si hay espacio o si son menos de 6 */
+    align-items: center;
+    gap: 20px; /* Espacio exacto entre colecciones */
+    overflow-x: auto; 
+    scroll-behavior: smooth; 
+    scrollbar-width: none; 
+    padding: 20px;
+    margin-top: 40px;
+    -webkit-overflow-scrolling: touch; 
+
+}
+
+/* Ocultar barra de desplazamiento */
+.galeria-productos::-webkit-scrollbar {
+    display: none;
+}
+
+/* --- CADA TARJETA DE COLECCIÓN (Base: 6 colecciones) --- */
+.galeria-productos .producto {
+    flex: 0 0 calc((100% - 100px) / 6); 
+    width: calc((100% - 100px) / 6);
+    max-width: 270px; /* Respeta tu medida ideal en pantallas grandes */
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Contenedor interno de imágenes de cada colección */
+.galeria-productos .imagenes-container {
+    position: relative;
+    width: 100%;
+    height: 350px; 
+    background-color: #ffffff; 
+    
+    padding: 20px; 
+    box-sizing: border-box; 
+}
+
+.galeria-productos .imagenes-container img {
+    position: absolute;
+    top: 20px;  
+    left: 20px; 
+    
+    width: calc(100% - 40px); 
+    height: calc(100% - 40px);
+    
+    object-fit: contain; 
+    opacity: 0;
+    transition: opacity 0.3s ease;
     cursor: pointer;
 }
 
-.imagenes-container img.activa {
-    display: block;
+.galeria-productos .imagenes-container img.activa {
+    opacity: 1;
+}
+
+/* --- PUNTOS DE QUIEBRE PARA REDUCIR LA CANTIDAD DE COLECCIONES VISIBLES --- */
+
+/* Pantallas medianas-grandes: Muestra exactamente 5 colecciones */
+@media (max-width: 1600px) {
+    .galeria-productos .producto {
+        flex: 0 0 calc((100% - 80px) / 5);
+        width: calc((100% - 80px) / 5);
+        max-width: none;
+    }
+}
+
+/* Laptops / Tablets grandes: Muestra exactamente 4 colecciones */
+@media (max-width: 1300px) {
+    .galeria-productos .producto {
+        flex: 0 0 calc((100% - 60px) / 4);
+        width: calc((100% - 60px) / 4);
+    }
+}
+
+/* Tablets: Muestra exactamente 3 colecciones */
+@media (max-width: 992px) {
+    .galeria-productos .producto {
+        flex: 0 0 calc((100% - 40px) / 3);
+        width: calc((100% - 40px) / 3);
+    }
+}
+
+/* Móviles grandes: Muestra exactamente 2 colecciones */
+@media (max-width: 768px) {
+    
+    #colecciones{
+        padding: 2rem;
+    }
+
+    .galeria-productos {
+        justify-content: flex-start; /* Alinea al inicio en móviles para un scroll táctil natural */
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .galeria-productos .producto {
+        flex: 0 0 calc((100% - 20px) / 2);
+        width: calc((100% - 20px) / 2);
+    }
+}
+
+/* Móviles pequeños: Muestra exactamente 1 colección a la vez */
+@media (max-width: 480px) {
+    .galeria-productos .producto {
+        flex: 0 0 100%;
+        width: 100%;
+    }
+}
+
+/* --- BOTONES GENERALES DEL CARRUSEL DE COLECCIONES --- */
+/* (Nota: Estos controlan el desplazamiento horizontal de las colecciones completas) */
+.carrusel-btn-prev, 
+.carrusel-btn-next {
+    position: absolute;
+    top: 55%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    border: none;
+    padding: 12px 16px;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.carrusel-btn-prev:hover, 
+.carrusel-btn-next:hover {
+    background-color: #000000;
+}
+
+.carrusel-btn-prev {
+    left: 10px;
+}
+
+.carrusel-btn-next {
+    right: 10px;
 }
 
 /* --- CARRUSEL DE IMÁGENES (FLECHAS) --- */
@@ -637,9 +746,11 @@ main {
 .info-producto {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;    /* Manda todo (títulos, precios, selectores) hacia la izquierda automáticamente */
+    align-items: flex-start;
+    /* Manda todo (títulos, precios, selectores) hacia la izquierda automáticamente */
     text-align: left;
-    gap: 1rem;  /* Mantiene la separación compacta */
+    gap: 1rem;
+    /* Mantiene la separación compacta */
 }
 
 .info-producto h1 {
@@ -703,8 +814,9 @@ footer {
     font-size: 0.85rem;
     position: relative;
     box-sizing: border-box;
-    background-color: rgba(0, 0, 0, 0.90);   /* 0.85 es la transparencia (85%) */
-    
+    background-color: rgba(0, 0, 0, 0.90);
+    /* 0.85 es la transparencia (85%) */
+
 }
 
 .footer-content {
@@ -720,8 +832,10 @@ footer {
 .social-links {
     display: flex;
     align-items: center;
-    gap: 12px;    /* Espacio entre los iconos */
-    line-height: 0; /* Elimina cualquier altura de línea fantasma */
+    gap: 12px;
+    /* Espacio entre los iconos */
+    line-height: 0;
+    /* Elimina cualquier altura de línea fantasma */
 }
 
 .social-links a {
@@ -1159,15 +1273,15 @@ footer {
     left: 0;
     transform: translateY(-50%);
     z-index: 2500;
-    
+
     background-color: #f9f9f9;
     border: 1px solid #e0e0e0;
     border-left: none;
     border-radius: 0 10px 10px 0;
-    
+
     padding: 5px;
     box-shadow: 3px 4px 15px rgba(0, 0, 0, 0.08);
-    
+
     animation: flotarLateral 4s ease-in-out infinite;
     transition: background-color 0.3s ease, padding 0.3s ease;
 }
@@ -1183,8 +1297,10 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 42px;  /* Ancho estricto */
-    height: 42px; /* Alto estricto bloqueado */
+    width: 42px;
+    /* Ancho estricto */
+    height: 42px;
+    /* Alto estricto bloqueado */
     text-decoration: none;
 }
 
@@ -1201,10 +1317,11 @@ footer {
 /* --- ESTILO DEL BOCADILlO LATERAL --- */
 .bocadillo-mensaje {
     position: absolute;
-    left: 65px; /* Se coloca justo a la derecha del isotipo */
+    left: 65px;
+    /* Se coloca justo a la derecha del isotipo */
     top: 50%;
     transform: translateY(-50%) translateX(-8px);
-    
+
     background-color: #000000;
     color: #ffffff;
     padding: 7px 12px;
@@ -1218,7 +1335,8 @@ footer {
     visibility: hidden;
     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    pointer-events: none; /* Evita interferencias en móviles */
+    pointer-events: none;
+    /* Evita interferencias en móviles */
 }
 
 /* --- MOSTRAR MENSAJE Y EXPANDIR PESTAÑA AL HACER HOVER --- */
@@ -1244,12 +1362,16 @@ footer {
 }
 
 @keyframes brisaHoja {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: rotate(0deg);
     }
+
     50% {
         transform: rotate(14deg);
     }
+
     75% {
         transform: rotate(-6deg);
     }
@@ -1260,9 +1382,12 @@ footer {
 }
 
 @keyframes flotarLateral {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(-50%) translateX(0);
     }
+
     50% {
         transform: translateY(-50%) translateX(4px);
     }
@@ -1304,11 +1429,12 @@ footer {
     }
 
     .bocadillo-mensaje {
-        left: 45px; 
+        left: 45px;
         font-size: 0.7rem;
         padding: 5px 10px;
         max-width: 160px;
-        white-space: normal; /* Permite salto de línea si es necesario */
+        white-space: normal;
+        /* Permite salto de línea si es necesario */
     }
 }
 
@@ -1430,7 +1556,8 @@ footer {
         top: 72px;
         left: 0;
         width: 100%;
-        background-color: rgba(0, 0, 0, 0.95);   /* 0.85 es la transparencia (85%) */
+        background-color: rgba(0, 0, 0, 0.95);
+        /* 0.85 es la transparencia (85%) */
         flex-direction: column;
         padding: 20px;
         z-index: 999;
@@ -1463,10 +1590,6 @@ footer {
 
     .hero-content p {
         font-size: .8rem;
-    }
-
-    #colecciones {
-        padding: 1rem;
     }
 
     #contenedor-detalle {
@@ -1540,6 +1663,14 @@ footer {
 
     .related-section {
         padding: 2rem;
+    }
+
+    .hero-content a {
+        font-size: .75rem;
+    }
+
+    .galeria-productos{
+        margin-top: 20px;
     }
 
 }
