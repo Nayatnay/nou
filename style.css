@@ -184,8 +184,10 @@ main {
 #colecciones {
     position: relative;
     width: 100%;
-    max-width: 1820px; /* Ancho máximo exacto para alojar cómodamente hasta 6 tarjetas + gaps */
-    margin: 0 auto;    /* Mantiene centrado el carrusel en la pantalla */
+    max-width: 1820px;
+    /* Ancho máximo exacto para alojar cómodamente hasta 6 tarjetas + gaps */
+    margin: 0 auto;
+    /* Mantiene centrado el carrusel en la pantalla */
     padding: 4rem 2rem;
     box-sizing: border-box;
     overflow: hidden;
@@ -194,15 +196,17 @@ main {
 /* --- GALERÍA CARRUSEL --- */
 .galeria-productos {
     display: flex;
-    justify-content: center; /* Centra las tarjetas si hay espacio o si son menos de 6 */
+    justify-content: center;
+    /* Centra las tarjetas si hay espacio o si son menos de 6 */
     align-items: center;
-    gap: 20px; /* Espacio exacto entre colecciones */
-    overflow-x: auto; 
-    scroll-behavior: smooth; 
-    scrollbar-width: none; 
+    gap: 20px;
+    /* Espacio exacto entre colecciones */
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
     padding: 20px;
     margin-top: 40px;
-    -webkit-overflow-scrolling: touch; 
+    -webkit-overflow-scrolling: touch;
 
 }
 
@@ -213,9 +217,10 @@ main {
 
 /* --- CADA TARJETA DE COLECCIÓN (Base: 6 colecciones) --- */
 .galeria-productos .producto {
-    flex: 0 0 calc((100% - 100px) / 6); 
+    flex: 0 0 calc((100% - 100px) / 6);
     width: calc((100% - 100px) / 6);
-    max-width: 270px; /* Respeta tu medida ideal en pantallas grandes */
+    max-width: 270px;
+    /* Respeta tu medida ideal en pantallas grandes */
     background: #ffffff;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
@@ -228,22 +233,22 @@ main {
 .galeria-productos .imagenes-container {
     position: relative;
     width: 100%;
-    height: 350px; 
-    background-color: #ffffff; 
-    
-    padding: 20px; 
-    box-sizing: border-box; 
+    height: 350px;
+    background-color: #ffffff;
+
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .galeria-productos .imagenes-container img {
     position: absolute;
-    top: 20px;  
-    left: 20px; 
-    
-    width: calc(100% - 40px); 
+    top: 20px;
+    left: 20px;
+
+    width: calc(100% - 40px);
     height: calc(100% - 40px);
-    
-    object-fit: contain; 
+
+    object-fit: contain;
     opacity: 0;
     transition: opacity 0.3s ease;
     cursor: pointer;
@@ -282,13 +287,14 @@ main {
 
 /* Móviles grandes: Muestra exactamente 2 colecciones */
 @media (max-width: 768px) {
-    
-    #colecciones{
+
+    #colecciones {
         padding: 2rem;
     }
 
     .galeria-productos {
-        justify-content: flex-start; /* Alinea al inicio en móviles para un scroll táctil natural */
+        justify-content: flex-start;
+        /* Alinea al inicio en móviles para un scroll táctil natural */
         padding-left: 20px;
         padding-right: 20px;
     }
@@ -309,7 +315,7 @@ main {
 
 /* --- BOTONES GENERALES DEL CARRUSEL DE COLECCIONES --- */
 /* (Nota: Estos controlan el desplazamiento horizontal de las colecciones completas) */
-.carrusel-btn-prev, 
+.carrusel-btn-prev,
 .carrusel-btn-next {
     position: absolute;
     top: 55%;
@@ -325,7 +331,7 @@ main {
     transition: background-color 0.3s ease;
 }
 
-.carrusel-btn-prev:hover, 
+.carrusel-btn-prev:hover,
 .carrusel-btn-next:hover {
     background-color: #000000;
 }
@@ -389,19 +395,40 @@ main {
     width: 100%;
     overflow: hidden;
     text-align: center;
+    background-color: #000000;
+    color: white;
+    line-height: 1rem;
+}
+
+#personalizadas h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 3.5rem;
+}
+
+#personalizadas h3 {
+    font-size: 2rem;
+    color: #000000;
+    background-color: #aaaaaa;
+    display: inline-block;
+    padding: .2em 1em;
+    line-height: 1.5rem;
+
 }
 
 #personalizadas p {
-    font-size: .9rem;
+    font-size: 1rem;
+    margin-top: 12px;
+    line-height: .2rem;
 }
 
 .customizer-container {
     max-width: 1100px;
-    margin: 20px auto;
+    margin: 80px auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 40px;
-    background: #ffffff;
+    background-color: #ffffff;
     padding: 40px;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
@@ -1600,17 +1627,9 @@ footer {
         padding: 2rem;
     }
 
-    #personalizadas {
-        text-align: left;
-    }
-
-    #personalizadas h3 {
-        font-size: 1.3rem;
-    }
-
     .customizer-container {
         grid-template-columns: 1fr;
-        padding: 20px;
+        margin-top: 40px;
         box-sizing: border-box;
     }
 
@@ -1669,8 +1688,23 @@ footer {
         font-size: .75rem;
     }
 
-    .galeria-productos{
+    .galeria-productos {
         margin-top: 20px;
     }
+
+    #personalizadas h2 {
+        font-size: 2rem;
+        line-height: 2.5rem;
+    }
+
+    #personalizadas h3 {
+        font-size: 1.4rem;
+        line-height: 1.5rem;
+        padding: .1em .5em;
+    }
+    #personalizadas p {
+        font-size: .7rem;
+    }
+
 
 }
