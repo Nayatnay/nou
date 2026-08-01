@@ -170,6 +170,11 @@ main {
     color: #ffffff;
 }
 
+#bajopedido {
+    scroll-margin-top: 72px;
+    padding-top: 4rem;
+}
+
 #bajopedido h2 {
     padding: 0 4rem;
 }
@@ -191,6 +196,7 @@ main {
     padding: 4rem 2rem;
     box-sizing: border-box;
     overflow: hidden;
+    scroll-margin-top: 72px;
 }
 
 /* --- GALERÍA CARRUSEL --- */
@@ -398,6 +404,7 @@ main {
     background-color: #000000;
     color: white;
     line-height: 1rem;
+    scroll-margin-top: 72px;
 }
 
 #personalizadas h2 {
@@ -407,13 +414,13 @@ main {
 }
 
 #personalizadas h3 {
-    font-size: 2rem;
+    font-size: 1.75rem;
     color: #000000;
     background-color: #aaaaaa;
     display: inline-block;
     padding: .2em 1em;
     line-height: 1.5rem;
-
+    font-weight: 800;
 }
 
 #personalizadas p {
@@ -422,11 +429,12 @@ main {
     line-height: .2rem;
 }
 
+/* 1. Estilos para pantallas grandes (Escritorio) */
 .customizer-container {
     max-width: 1100px;
     margin: 80px auto;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr; /* 2 columnas */
     gap: 40px;
     background-color: #ffffff;
     padding: 40px;
@@ -437,6 +445,16 @@ main {
     width: 100%;
 }
 
+/* 2. Estilos para pantallas pequeñas (Móviles / Tablets) */
+@media (max-width: 768px) {
+    .customizer-container {
+        display: flex;                 /* Cambiamos a flex para poder invertir el orden */
+        flex-direction: column-reverse; /* El último elemento pasa a ser el primero */
+        grid-template-columns: 1fr;    /* Ya no es necesario en flex, pero se anula el grid de arriba */
+        margin-top: 40px;
+        padding: 20px;                 /* Opcional: ajusta el padding para pantallas chicas */
+    }
+}
 .customizer-controls {
     display: flex;
     flex-direction: column;
@@ -563,9 +581,6 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #f4f4f4;
-    border-radius: 8px;
-    padding: 20px;
     overflow: hidden;
     width: 100%;
     box-sizing: border-box;
@@ -986,7 +1001,7 @@ footer {
     width: 100%;
     overflow: hidden;
     margin: 20px 0px 60px 0px;
-    padding: 20px;
+    padding-top: 2rem;
     display: block;
     box-sizing: border-box;
 }
@@ -1627,12 +1642,6 @@ footer {
         padding: 2rem;
     }
 
-    .customizer-container {
-        grid-template-columns: 1fr;
-        margin-top: 40px;
-        box-sizing: border-box;
-    }
-
     .whatsapp-float span {
         display: none;
     }
@@ -1698,13 +1707,16 @@ footer {
     }
 
     #personalizadas h3 {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
         line-height: 1.5rem;
         padding: .1em .5em;
     }
+
     #personalizadas p {
         font-size: .7rem;
     }
 
-
+#bajopedido {
+    padding-top: 2rem;
+}
 }
