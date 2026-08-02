@@ -278,6 +278,15 @@ function cambiarImagen(idCarrusel, direccion) {
 }
 
 function verDetalle(coleccion, idImagen) {
+    // Si viene desde una tarjeta de carrusel interactiva, buscamos el índice de la imagen activa actual
+    const contenedor = document.getElementById(`carrusel-${coleccion}`);
+    if (contenedor) {
+        const imagenes = contenedor.querySelectorAll('.imagenes-container img');
+        const indiceActivo = Array.from(imagenes).findIndex(img => img.classList.contains('activa'));
+        if (indiceActivo !== -1) {
+            idImagen = indiceActivo; // Forzamos a usar el índice real que está viendo el usuario en pantalla
+        }
+    }
     window.location.href = `detalle.html?coleccion=${coleccion}&id=${idImagen}`;
 }
 
@@ -374,11 +383,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// --- LÓGICA COMPLETA PARA LA PÁGINA DE DETALLES ---
+// --- LÓGICA COMPLETA Y OPTIMIZADA PARA LA PÁGINA DE DETALLES (CON CARPETA GRANDE) ---
 document.addEventListener("DOMContentLoaded", function () {
     const urlParams = new URLSearchParams(window.location.search);
     const coleccion = urlParams.get('coleccion');
-    const id = urlParams.get('id');
+    const id = urlParams.get('id'); 
 
     if (coleccion && id !== null) {
         const imgProd = document.getElementById('imagen-producto');
@@ -386,17 +395,15 @@ document.addEventListener("DOMContentLoaded", function () {
         const precioProd = document.getElementById('precio-producto');
         const spanColeccion = document.getElementById('nombre-coleccion-detalle');
         const enlaceProducto = document.getElementById("enlaceProducto");
-        const tituloPagina = document.querySelector('.page-title'); // <- Nuevo: Seleccionamos el título de la página
+        const tituloPagina = document.querySelector('.page-title');
 
-        // 1. Cargar la imagen principal del producto (miniatura)
-        if (imgProd) imgProd.src = `assets/grande/${coleccion}/${id}.webp`;
+        // 1. CARGAR DESDE LA CARPETA GRANDE PARA EL DETALLE PRINCIPAL
+        const rutaImagenGrande = `assets/grande/${coleccion}/${id}.webp`;
 
-        // 1.1 Construimos y asignamos la URL dinámica para el href (Imagen grande)
-        if (enlaceProducto) {
-            enlaceProducto.href = `assets/grande/${coleccion}/${id}.webp`;
-        }
+        if (imgProd) imgProd.src = rutaImagenGrande;
+        if (enlaceProducto) enlaceProducto.href = rutaImagenGrande; // Para que el zoom abra la versión grande
 
-        // 2. Mostrar el nombre de la colección junto a la imagen
+        // 2. Mostrar el nombre de la colección formateado
         let textoColeccionFinal = "";
         if (spanColeccion) {
             const coleccionFormateada = coleccion.charAt(0).toUpperCase() + coleccion.slice(1);
@@ -406,19 +413,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // 3. Obtener el nombre real de la franela desde el diccionario
         let nombreFranela = `Franela ${coleccion.toUpperCase()} #${id}`;
-        if (typeof nombresFranelas !== 'undefined' && nombresFranelas[coleccion] && nombresFranelas[coleccion][id]) {
-            nombreFranela = nombresFranelas[coleccion][id];
+        if (typeof nombresFranelas !== 'undefined' && nombresFranelas[coleccion]) {
+            if (nombresFranelas[coleccion][id]) {
+                nombreFranela = nombresFranelas[coleccion][id];
+            }
         }
 
-        // 4. Cargar el título principal en el HTML
-        if (titProd) {
-            titProd.innerText = nombreFranela;
-        }
-
-        // 4.1 NUEVO: Actualizar el <p class="page-title"> uniendo la colección y el título
-        if (tituloPagina) {
-            tituloPagina.textContent = `${nombreFranela}`;
-        }
+        // 4. Cargar el título principal en el HTML y en la miga de pan
+        if (titProd) titProd.innerText = nombreFranela;
+        if (tituloPagina) tituloPagina.textContent = nombreFranela;
 
         // 5. Actualizar dinámicamente la pestaña del navegador (<title>)
         const coleccionFormateadaTab = coleccion.charAt(0).toUpperCase() + coleccion.slice(1);
@@ -426,7 +429,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // 6. Cargar el precio correspondiente
         if (precioProd) {
-            let precioFinal = "$25.00"; // Precio por defecto
+            let precioFinal = "$25.00"; 
             if (typeof preciosFranelas !== 'undefined' && preciosFranelas[coleccion] && preciosFranelas[coleccion][id]) {
                 precioFinal = preciosFranelas[coleccion][id];
             }
@@ -434,6 +437,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // 7. Generar el grid con las demás franelas de la misma colección (Relacionados)
+        // Nota: Para los relacionados abajo puedes mantener las miniaturas normales o usar grandes, 
+        // por rendimiento se suelen usar las miniaturas ('assets/'), pero respetan sus IDs.
         const gridContainer = document.getElementById('grid-relacionados');
 
         if (gridContainer && typeof nombresFranelas !== 'undefined' && nombresFranelas[coleccion]) {
@@ -460,7 +465,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
 
-        // 8. Inicializar Glightbox AQUÍ
+        // 8. Inicializar Glightbox de forma segura
         if (typeof GLightbox !== 'undefined') {
             GLightbox({
                 selector: '.glightbox',
@@ -661,6 +666,61 @@ function moverCarruselColecciones(direccion) {
         behavior: 'smooth'
     });
 }
+
+/* ANIMACION DE PRODUCTOS DE CADA GALERIA *////////////////////////////
+document.addEventListener("DOMContentLoaded", function () {
+    const productos = document.querySelectorAll('.galeria-productos .producto');
+
+    productos.forEach(producto => {
+        const imagenes = producto.querySelectorAll('.imagenes-container img');
+        
+        // Solo activamos si hay más de una imagen
+        if (imagenes.length > 1) {
+            let intervalo = null;
+
+            function iniciarAutoplayMovil() {
+                // Verificamos si la pantalla es pequeña (hasta 768px)
+                if (window.innerWidth <= 768 && !intervalo) {
+                    intervalo = setInterval(() => {
+                        // Buscamos cuál es la imagen activa actual en este contenedor específico
+                        let indexActual = Array.from(imagenes).findIndex(img => img.classList.contains('activa'));
+                        
+                        // Si por alguna razón no encuentra la activa, por defecto usa la primera
+                        if (indexActual === -1) indexActual = 0;
+
+                        // Quitamos la clase a la actual
+                        imagenes[indexActual].classList.remove('activa');
+
+                        // Calculamos la siguiente
+                        let siguienteIndex = (indexActual + 1) % imagenes.length;
+
+                        // Añadimos la clase a la siguiente
+                        imagenes[siguienteIndex].classList.add('activa');
+                    }, 3500); // Cambia cada 3.5 segundos
+                }
+            }
+
+            function detenerAutoplayEscritorio() {
+                if (window.innerWidth > 768 && intervalo) {
+                    clearInterval(intervalo);
+                    intervalo = null;
+                }
+            }
+
+            // Ejecutar al cargar la página según el tamaño actual
+            iniciarAutoplayMovil();
+
+            // Escuchar cuando el usuario redimensiona la ventana
+            window.addEventListener('resize', () => {
+                if (window.innerWidth <= 768) {
+                    iniciarAutoplayMovil();
+                } else {
+                    detenerAutoplayEscritorio();
+                }
+            });
+        }
+    });
+});
 
 /***************************** D I C C I O N A R I O S ************************/
 // Diccionario con los nombres reales de cada franela por colección y número/archivo
