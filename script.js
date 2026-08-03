@@ -34,7 +34,17 @@ function dibujarTodo() {
     if (!canvas || !ctx) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(imgBase, 0, 0, canvas.width, canvas.height);
-    if (imgUsuario) dibujarEstampa();
+
+    // Si hay una imagen de usuario cargada, la dibujamos utilizando la ubicación actual
+    const ubicacion = document.getElementById('ubicacion') ? document.getElementById('ubicacion').value : "Centro Pecho";
+    const selectTamano = document.getElementById('tamano');
+    const tamanoSeleccionado = selectTamano ? selectTamano.value : "20cm";
+    const pos = posiciones[ubicacion] || posiciones["Centro Pecho"];
+    const tamanoEnPixeles = opcionesTamano[tamanoSeleccionado] || 300;
+
+    if (imgUsuario) {
+        dibujarEstampaEnCanvas(pos, tamanoEnPixeles);
+    }
 }
 
 function actualizarPrevisualizacion() {
@@ -73,21 +83,25 @@ function dibujarTodoConTamano(pos, tamano) {
     ctx.drawImage(imgBase, 0, 0, canvas.width, canvas.height);
 
     if (imgUsuario) {
-        const escalaPantalla = canvas.clientWidth / 800;
-        const factorEscala = Math.max(escalaPantalla, 0.75);
-
-        const sizeEscalado = tamano * factorEscala;
-        let ratio = Math.min(sizeEscalado / imgUsuario.width, sizeEscalado / imgUsuario.height);
-        let w = imgUsuario.width * ratio;
-        let h = imgUsuario.height * ratio;
-
-        let x = pos.x - (w / 2);
-        const posicionCuelloY = 120;
-        const espacioDesdeCuello = 50;
-        let y = posicionCuelloY + espacioDesdeCuello;
-
-        ctx.drawImage(imgUsuario, x, y, w, h);
+        dibujarEstampaEnCanvas(pos, tamano);
     }
+}
+
+function dibujarEstampaEnCanvas(pos, tamano) {
+    const escalaPantalla = canvas.clientWidth / 800;
+    const factorEscala = Math.max(escalaPantalla, 0.75);
+
+    const sizeEscalado = tamano * factorEscala;
+    let ratio = Math.min(sizeEscalado / imgUsuario.width, sizeEscalado / imgUsuario.height);
+    let w = imgUsuario.width * ratio;
+    let h = imgUsuario.height * ratio;
+
+    let x = pos.x - (w / 2);
+    const posicionCuelloY = 120;
+    const espacioDesdeCuello = 50;
+    let y = posicionCuelloY + espacioDesdeCuello;
+
+    ctx.drawImage(imgUsuario, x, y, w, h);
 }
 
 // --- EVENTOS Y CARRITO ---
@@ -130,22 +144,55 @@ function actualizarEstadoBotonWhatsApp() {
 function renderizarCarrito() {
     const lista = document.getElementById('lista-carrito');
     const cont = document.getElementById('contador');
+
     if (lista) {
         lista.innerHTML = '';
-        carrito.forEach((item, i) => {
-            lista.innerHTML += `
-                <li>
-                    <span>${item}</span>
-                    <button onclick="eliminar(${i})" class="btn-eliminar" title="Eliminar producto">
-                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="3 6 5 6 21 6"></polyline>
-                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                            <line x1="10" y1="11" x2="10" y2="17"></line>
-                            <line x1="14" y1="11" x2="14" y2="17"></line>
-                        </svg>
-                    </button>
-                </li>`;
-        });
+        if (carrito.length === 0) {
+            lista.innerHTML = "<li style='justify-content: center; color: #777; border:none;'>Tu lista está vacía</li>";
+        } else {
+            carrito.forEach((item, i) => {
+                if (typeof item === 'object' && item !== null) {
+                    const esPersonalizada = item.id && item.id.startsWith("custom");
+
+                    const subtituloDetalle = esPersonalizada
+                        ? `Color: ${item.color} | Talla: ${item.talla} <br>Ubicación: ${item.ubicacion} (${item.tamanoDiseno})`
+                        : `Colección: ${item.coleccion.toUpperCase()} | Color: ${item.color} | Talla: ${item.talla} <br>Cantidad: ${item.cantidad}`;
+
+                    const precioMostrar = esPersonalizada ? "$15.00 USD" : item.precioTexto;
+
+                    lista.innerHTML += `
+                        <li>
+                            <img src="${item.miniatura}" alt="Miniatura" class="carrito-miniatura">
+                            <div class="carrito-info-item">
+                                <strong>${item.tipo}</strong>
+                                <span>${subtituloDetalle}</span>
+                                <span style="font-weight: bold; color: #000; margin-top: 2px;">${precioMostrar}</span>
+                            </div>
+                            <button onclick="eliminar(${i})" class="btn-eliminar" title="Eliminar producto">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                                </svg>
+                            </button>
+                        </li>`;
+                } else {
+                    lista.innerHTML += `
+                        <li>
+                            <span style="flex-grow: 1; padding-right: 10px;">${item}</span>
+                            <button onclick="eliminar(${i})" class="btn-eliminar" title="Eliminar producto">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                                </svg>
+                            </button>
+                        </li>`;
+                }
+            });
+        }
     }
     if (cont) cont.innerText = carrito.length;
     actualizarEstadoBotonWhatsApp();
@@ -159,7 +206,23 @@ function eliminar(i) {
 
 function enviarPedido() {
     if (carrito.length === 0) return;
-    window.open(`https://wa.me/584126067734?text=${encodeURIComponent("Hola, quiero pedir: " + carrito.join(", "))}`, '_blank');
+
+    // Generamos el texto de cada producto
+    const textosPedido = carrito.map(item => {
+        if (typeof item === 'object' && item !== null) {
+            if (item.id && item.id.startsWith("custom")) {
+                return `• Franela personalizada (Base: ${item.color} - *Consultar tono exacto por WhatsApp*, Talla: ${item.talla}, Ubicación: ${item.ubicacion}, Tamaño: ${item.tamanoDiseno}) - $15.00 USD`;
+            } else {
+                return `• ${item.cantidad}x ${item.tipo} (${item.precioTexto} c/u) - [Base: ${item.color} - *Consultar tono exacto por WhatsApp*, Talla: ${item.talla}]`;
+            }
+        }
+        return `• ${item}`;
+    });
+
+    // Unimos los productos usando %0A (salto de línea) para que cada uno quede en su propia fila
+    const mensajeFinal = "Hola, quiero pedir los siguientes productos:%0A" + textosPedido.join("%0A");
+
+    window.open(`https://wa.me/584126067734?text=${mensajeFinal}`, '_blank');
 }
 
 function abrirModal() {
@@ -175,7 +238,6 @@ function cerrarModal() {
     if (modal) modal.style.display = "none";
 }
 
-// 1. Mostrar el nombre del archivo y habilitar/deshabilitar el botón dinámicamente
 function mostrarNombreArchivo() {
     const inputArchivo = document.getElementById('upload');
     const spanNombre = document.getElementById('file-name');
@@ -192,7 +254,6 @@ function mostrarNombreArchivo() {
     }
 }
 
-// 2. Función para procesar y agregar el diseño personalizado al carrito
 function agregarPersonalizado() {
     const inputArchivo = document.getElementById('upload');
     const u = document.getElementById('ubicacion').value;
@@ -209,33 +270,47 @@ function agregarPersonalizado() {
         return;
     }
 
-    agregarAlCarrito(`Franela personalizada (Base en pantalla: ${colorFormateado} - *Consultar color exacto por WhatsApp*, Talla: ${talla}, Ubicación: ${u}, Tamaño: ${t})`);
-
-    const textoOriginal = boton.innerHTML;
-    boton.innerHTML = '¡Agregado al carrito! ✓';
-    boton.classList.add('btn-exito');
-    boton.disabled = true;
+    // Forzamos la actualización visual para asegurarnos de que el canvas esté completo
+    actualizarPrevisualizacion();
 
     setTimeout(() => {
-        boton.innerHTML = textoOriginal;
-        boton.classList.remove('btn-exito');
+        const imagenMiniatura = canvas.toDataURL("image/png");
 
-        if (inputArchivo.files.length > 0) {
-            boton.disabled = false;
-            boton.classList.remove('is-disabled');
-        } else {
-            boton.disabled = true;
-            boton.classList.add('is-disabled');
-        }
-    }, 2500);
+        const itemPersonalizado = {
+            id: "custom-" + Date.now(),
+            tipo: "Franela personalizada",
+            color: colorFormateado,
+            talla: talla,
+            ubicacion: u,
+            tamanoDiseno: t,
+            miniatura: imagenMiniatura,
+            precio: 15.00,
+            cantidad: 1
+        };
+
+        agregarAlCarrito(itemPersonalizado);
+
+        const textoOriginal = boton.innerHTML;
+        boton.innerHTML = 'Agregado al carrito';
+        boton.classList.add('btn-exito');
+        boton.disabled = true;
+
+        setTimeout(() => {
+            boton.innerHTML = textoOriginal;
+            boton.classList.remove('btn-exito');
+            if (inputArchivo.files.length > 0) {
+                boton.disabled = false;
+                boton.classList.remove('is-disabled');
+            }
+        }, 2500);
+    }, 50);
 }
 
-// 3. Asegurar que el botón inicie desactivado al cargar la página si no hay archivo
 document.addEventListener("DOMContentLoaded", function () {
     const inputArchivo = document.getElementById('upload');
     const boton = document.querySelector('.btn-comprar');
 
-    if (inputArchivo && inputArchivo.files.length === 0) {
+    if (inputArchivo && inputArchivo.files.length === 0 && boton) {
         boton.disabled = true;
         boton.classList.add('is-disabled');
     }
@@ -243,7 +318,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 renderizarCarrito();
 
-// Lógica del menú móvil
 function toggleMenu() {
     const navLinks = document.getElementById('navLinks');
     if (navLinks) navLinks.classList.toggle('active');
@@ -278,13 +352,12 @@ function cambiarImagen(idCarrusel, direccion) {
 }
 
 function verDetalle(coleccion, idImagen) {
-    // Si viene desde una tarjeta de carrusel interactiva, buscamos el índice de la imagen activa actual
     const contenedor = document.getElementById(`carrusel-${coleccion}`);
     if (contenedor) {
         const imagenes = contenedor.querySelectorAll('.imagenes-container img');
         const indiceActivo = Array.from(imagenes).findIndex(img => img.classList.contains('activa'));
         if (indiceActivo !== -1) {
-            idImagen = indiceActivo; // Forzamos a usar el índice real que está viendo el usuario en pantalla
+            idImagen = indiceActivo;
         }
     }
     window.location.href = `detalle.html?coleccion=${coleccion}&id=${idImagen}`;
@@ -294,15 +367,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const track = document.querySelector('.carousel-track');
     if (!track) return;
 
-    const originalCards = Array.from(track.children);
-    for (let i = 0; i < 2; i++) {
-        originalCards.forEach(card => {
-            track.appendChild(card.cloneNode(true));
-        });
+    // Solo clonamos si es pantalla grande (Escritorio)
+    if (window.innerWidth > 768) {
+        const originalCards = Array.from(track.children);
+        for (let i = 0; i < 2; i++) {
+            originalCards.forEach(card => {
+                track.appendChild(card.cloneNode(true));
+            });
+        }
     }
 });
 
-// --- VARIABLES Y MAPA DE COLORES ---
 let colorActual = 'blanco';
 
 const mockups = {
@@ -329,7 +404,6 @@ function cambiarColor(color) {
     actualizarPrevisualizacion();
 }
 
-// --- FORMULARIOS AJAX (FORMSPREE) ---
 document.addEventListener("DOMContentLoaded", function () {
     const forms = document.querySelectorAll(".ajax-form");
 
@@ -383,11 +457,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// --- LÓGICA COMPLETA Y OPTIMIZADA PARA LA PÁGINA DE DETALLES (CON CARPETA GRANDE) ---
 document.addEventListener("DOMContentLoaded", function () {
     const urlParams = new URLSearchParams(window.location.search);
     const coleccion = urlParams.get('coleccion');
-    const id = urlParams.get('id'); 
+    const id = urlParams.get('id');
 
     if (coleccion && id !== null) {
         const imgProd = document.getElementById('imagen-producto');
@@ -397,13 +470,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const enlaceProducto = document.getElementById("enlaceProducto");
         const tituloPagina = document.querySelector('.page-title');
 
-        // 1. CARGAR DESDE LA CARPETA GRANDE PARA EL DETALLE PRINCIPAL
         const rutaImagenGrande = `assets/grande/${coleccion}/${id}.webp`;
 
         if (imgProd) imgProd.src = rutaImagenGrande;
-        if (enlaceProducto) enlaceProducto.href = rutaImagenGrande; // Para que el zoom abra la versión grande
+        if (enlaceProducto) enlaceProducto.href = rutaImagenGrande;
 
-        // 2. Mostrar el nombre de la colección formateado
         let textoColeccionFinal = "";
         if (spanColeccion) {
             const coleccionFormateada = coleccion.charAt(0).toUpperCase() + coleccion.slice(1);
@@ -411,7 +482,6 @@ document.addEventListener("DOMContentLoaded", function () {
             spanColeccion.innerText = textoColeccionFinal;
         }
 
-        // 3. Obtener el nombre real de la franela desde el diccionario
         let nombreFranela = `Franela ${coleccion.toUpperCase()} #${id}`;
         if (typeof nombresFranelas !== 'undefined' && nombresFranelas[coleccion]) {
             if (nombresFranelas[coleccion][id]) {
@@ -419,26 +489,20 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
-        // 4. Cargar el título principal en el HTML y en la miga de pan
         if (titProd) titProd.innerText = nombreFranela;
         if (tituloPagina) tituloPagina.textContent = nombreFranela;
 
-        // 5. Actualizar dinámicamente la pestaña del navegador (<title>)
         const coleccionFormateadaTab = coleccion.charAt(0).toUpperCase() + coleccion.slice(1);
         document.title = `Nou | ${nombreFranela} — Colección ${coleccionFormateadaTab}`;
 
-        // 6. Cargar el precio correspondiente
         if (precioProd) {
-            let precioFinal = "$25.00"; 
+            let precioFinal = "$25.00";
             if (typeof preciosFranelas !== 'undefined' && preciosFranelas[coleccion] && preciosFranelas[coleccion][id]) {
                 precioFinal = preciosFranelas[coleccion][id];
             }
             precioProd.innerText = precioFinal;
         }
 
-        // 7. Generar el grid con las demás franelas de la misma colección (Relacionados)
-        // Nota: Para los relacionados abajo puedes mantener las miniaturas normales o usar grandes, 
-        // por rendimiento se suelen usar las miniaturas ('assets/'), pero respetan sus IDs.
         const gridContainer = document.getElementById('grid-relacionados');
 
         if (gridContainer && typeof nombresFranelas !== 'undefined' && nombresFranelas[coleccion]) {
@@ -465,7 +529,6 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
 
-        // 8. Inicializar Glightbox de forma segura
         if (typeof GLightbox !== 'undefined') {
             GLightbox({
                 selector: '.glightbox',
@@ -516,18 +579,29 @@ function agregarDesdeDetalle() {
     const talla = document.getElementById('talla-detalle').value;
     const cantidad = document.getElementById('cantidad').value;
     const colorFormateado = colorDetalleActual.charAt(0).toUpperCase() + colorDetalleActual.slice(1);
+    const precioTexto = document.getElementById('precio-producto') ? document.getElementById('precio-producto').innerText : '$25.00';
 
-    // Obtener el precio que se muestra en pantalla
-    const precioTexto = document.getElementById('precio-producto') ? document.getElementById('precio-producto').innerText : '';
+    // Ruta de la miniatura de la colección
+    const rutaImagenCatalogo = `assets/${coleccion}/${id}.webp`;
 
-    const productoFinal = `${cantidad}x ${nombreFranela} (${precioTexto} c/u) - [Base: ${colorFormateado} - *Consultar tono exacto por WhatsApp*, Talla: ${talla}]`;
-    agregarAlCarrito(productoFinal);
+    const productoCatalogo = {
+        id: "catalogo-" + coleccion + "-" + id + "-" + Date.now(),
+        tipo: nombreFranela,
+        coleccion: coleccion,
+        color: colorFormateado,
+        talla: talla,
+        cantidad: parseInt(cantidad),
+        precioTexto: precioTexto,
+        miniatura: rutaImagenCatalogo // ¡Aquí guardamos la foto real del catálogo!
+    };
+
+    agregarAlCarrito(productoCatalogo);
 
     const boton = document.querySelector('.info-producto .btn-comprar');
     if (!boton) return;
 
     const textoOriginal = boton.innerHTML;
-    boton.innerHTML = '¡Agregado al carrito!';
+    boton.innerHTML = 'Agregado al carrito';
     boton.classList.add('btn-exito');
     boton.disabled = true;
 
@@ -538,7 +612,6 @@ function agregarDesdeDetalle() {
     }, 2500);
 }
 
-// --- COLECCIÓN ACTIVA ---
 const COLECCION_ACTIVA_ID = "soccer";
 const NOMBRE_COLECCION_ACTIVA = "Soccer";
 
@@ -581,20 +654,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-//-------- tope transparente al hace scroll **********//
-
 window.addEventListener('scroll', function () {
     const header = document.querySelector('.tope');
+    if (!header) return;
 
-    // Si la posición en Y del scroll es mayor a 50 píxeles...
     if (window.scrollY > 50) {
-        header.classList.add('scrolled'); // Agrega la clase de transparencia
+        header.classList.add('scrolled');
     } else {
-        header.classList.remove('scrolled'); // La quita si vuelve arriba
+        header.classList.remove('scrolled');
     }
 });
-
-/**** bocadillo mensaje del itopipo cada 60 segundos */
 
 document.addEventListener("DOMContentLoaded", function () {
     const zorrito = document.querySelector('.zorrito-flotante');
@@ -602,101 +671,53 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!zorrito) return;
 
     function mostrarMensajeAutomatico() {
-        // Solo se ejecuta si la pantalla es menor o igual a 768px (móviles/tablets)
         if (window.innerWidth <= 768) {
             zorrito.classList.add('mostrar-alerta');
 
-            // El mensaje se vuelve a ocultar automáticamente después de 3 segundos
             setTimeout(function () {
                 zorrito.classList.remove('mostrar-alerta');
             }, 3000);
         }
     }
 
-    // Configura el temporizador para que se repita cada 60 segundos (60000 milisegundos)
     setInterval(mostrarMensajeAutomatico, 180000);
-
-    // (Opcional) Muestra el mensaje por primera vez a los 5 segundos de cargar la página
     setTimeout(mostrarMensajeAutomatico, 5000);
 });
 
-/********************* CARRUSEL DE LAS COLECCIONES EN INDEX */////
-
-// --- 1. Cambiar la imagen activa dentro de una tarjeta de colección ---
-function cambiarImagen(idCarrusel, direccion) {
-    const contenedor = document.getElementById(idCarrusel);
-    const imagenes = contenedor.querySelectorAll('.imagenes-container img');
-    let indiceActual = 0;
-
-    // Encontrar cuál imagen está activa actualmente
-    imagenes.forEach((img, index) => {
-        if (img.classList.contains('activa')) {
-            indiceActual = index;
-        }
-    });
-
-    // Quitar la clase activa de la imagen actual
-    imagenes[indiceActual].classList.remove('activa');
-
-    // Calcular el nuevo índice (con loop infinito circular)
-    let nuevoIndice = indiceActual + direccion;
-    if (nuevoIndice >= imagenes.length) {
-        nuevoIndice = 0;
-    } else if (nuevoIndice < 0) {
-        nuevoIndice = imagenes.length - 1;
-    }
-
-    // Activar la nueva imagen
-    imagenes[nuevoIndice].classList.add('activa');
-}
-
-// --- 2. Mover la galería completa de colecciones horizontalmente ---
 function moverCarruselColecciones(direccion) {
     const galeria = document.querySelector('.galeria-productos');
-    
-    // Tomamos el ancho de la primera tarjeta más su gap (20px) para calcular cuánto desplazar
+    if (!galeria) return;
+
     const tarjeta = galeria.querySelector('.producto');
     if (!tarjeta) return;
-    
-    const anchoTarjeta = tarjeta.offsetWidth + 20; 
-    
-    // Desplaza la galería el equivalente al ancho de una tarjeta multiplicado por la dirección (-1 o 1)
+
+    const anchoTarjeta = tarjeta.offsetWidth + 20;
+
     galeria.scrollBy({
         left: anchoTarjeta * direccion,
         behavior: 'smooth'
     });
 }
 
-/* ANIMACION DE PRODUCTOS DE CADA GALERIA *////////////////////////////
 document.addEventListener("DOMContentLoaded", function () {
     const productos = document.querySelectorAll('.galeria-productos .producto');
 
     productos.forEach(producto => {
         const imagenes = producto.querySelectorAll('.imagenes-container img');
-        
-        // Solo activamos si hay más de una imagen
+
         if (imagenes.length > 1) {
             let intervalo = null;
 
             function iniciarAutoplayMovil() {
-                // Verificamos si la pantalla es pequeña (hasta 768px)
                 if (window.innerWidth <= 768 && !intervalo) {
                     intervalo = setInterval(() => {
-                        // Buscamos cuál es la imagen activa actual en este contenedor específico
                         let indexActual = Array.from(imagenes).findIndex(img => img.classList.contains('activa'));
-                        
-                        // Si por alguna razón no encuentra la activa, por defecto usa la primera
                         if (indexActual === -1) indexActual = 0;
 
-                        // Quitamos la clase a la actual
                         imagenes[indexActual].classList.remove('activa');
-
-                        // Calculamos la siguiente
                         let siguienteIndex = (indexActual + 1) % imagenes.length;
-
-                        // Añadimos la clase a la siguiente
                         imagenes[siguienteIndex].classList.add('activa');
-                    }, 3500); // Cambia cada 3.5 segundos
+                    }, 3500);
                 }
             }
 
@@ -707,10 +728,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
 
-            // Ejecutar al cargar la página según el tamaño actual
             iniciarAutoplayMovil();
 
-            // Escuchar cuando el usuario redimensiona la ventana
             window.addEventListener('resize', () => {
                 if (window.innerWidth <= 768) {
                     iniciarAutoplayMovil();
@@ -722,8 +741,38 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-/***************************** D I C C I O N A R I O S ************************/
-// Diccionario con los nombres reales de cada franela por colección y número/archivo
+function actualizarMedidasTalla() {
+    const selectTalla = document.getElementById("talla-franela");
+    const infoMedidas = document.getElementById("info-medidas");
+    if (!selectTalla || !infoMedidas) return;
+
+    const tallaSeleccionada = selectTalla.value;
+
+    if (guiaMedidas[tallaSeleccionada]) {
+        const medida = guiaMedidas[tallaSeleccionada];
+        infoMedidas.textContent = `Medidas: Ancho ${medida.ancho} | Largo ${medida.largo}`;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    actualizarMedidasTalla();
+});
+
+const guiaMedidas = {
+    "2": { ancho: "32 cm", largo: "42 cm" },
+    "4": { ancho: "34 cm", largo: "45 cm" },
+    "6": { ancho: "36 cm", largo: "48 cm" },
+    "8": { ancho: "38 cm", largo: "51 cm" },
+    "10": { ancho: "40 cm", largo: "54 cm" },
+    "12": { ancho: "42 cm", largo: "57 cm" },
+    "14": { ancho: "44 cm", largo: "60 cm" },
+    "16": { ancho: "46 cm", largo: "63 cm" },
+    "S": { ancho: "48 cm", largo: "68 cm" },
+    "M": { ancho: "50 cm", largo: "70 cm" },
+    "L": { ancho: "52 cm", largo: "72 cm" },
+    "XL": { ancho: "54 cm", largo: "74 cm" }
+};
+
 const nombresFranelas = {
     "holamundo": {
         "0": "404",
@@ -740,7 +789,6 @@ const nombresFranelas = {
         "2": "MUSIC",
         "3": "MOCASINES",
         "4": "THE KING",
-
     },
     "mandalorian": {
         "0": "GROGU",
@@ -755,7 +803,6 @@ const nombresFranelas = {
         "1": "CHESSBOARD",
         "2": "LAST DANCE",
         "3": "CHESSMASTER",
-
     },
     "seriefine": {
         "0": "HUELLA",
@@ -777,7 +824,6 @@ const nombresFranelas = {
     },
 };
 
-// Diccionario de precios (opcional: si deseas colocar precios específicos por pieza)
 const preciosFranelas = {
     "holamundo": {
         "0": "$12.00 USD",

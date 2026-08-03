@@ -88,24 +88,7 @@ main {
     margin: 20px auto;
 }
 
-.btn-carrito {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 2px;
-}
 
-.btn-carrito img {
-    width: 22px;
-    height: 22px;
-    margin: 0;
-}
 
 #contador {
     font-size: 0.9rem;
@@ -609,6 +592,12 @@ main {
     box-sizing: border-box;
 }
 
+.talla-hint {
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    color: #777;
+}
+
 /* --- WHATSAPP FLOTANTE --- */
 .whatsapp-float {
     position: fixed;
@@ -677,17 +666,48 @@ main {
     list-style: none;
     padding: 0;
     margin: 0 0 1.5rem 0;
-    max-height: 250px;
+    max-height: 280px;
     overflow-y: auto;
 }
 
+/* Modificamos la fila del carrito para soportar la miniatura */
 .modal-contenido ul#lista-carrito li {
     padding: 0.75rem 0;
     border-bottom: 1px solid #f0f0f0;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 12px;
     font-size: 0.9rem;
+}
+
+/* Estilo para la miniatura del canvas */
+.carrito-miniatura {
+    width: 60px !important;
+    height: 60px !important;
+    object-fit: contain;
+    background-color: #fafafa;
+    border-radius: 4px;
+    border: 1px solid #eaeaea;
+    flex-shrink: 0;
+    display: block !important;
+}
+
+/* Contenedor para alinear los textos del producto personalizado */
+.carrito-info-item {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 2px;
+}
+
+.carrito-info-item strong {
+    font-size: 0.9rem;
+    color: #111;
+}
+
+.carrito-info-item span {
+    font-size: 0.8rem;
+    color: #666;
 }
 
 .modal-contenido>button {
@@ -722,19 +742,53 @@ main {
     color: #000;
 }
 
-.modal-contenido ul#lista-carrito li button {
+.modal-contenido ul#lista-carrito li button.btn-eliminar {
     background: none;
     border: none;
-    color: #e53935;
-    font-weight: bold;
     cursor: pointer;
-    padding: 0.2rem 0.5rem;
-    font-size: 0.9rem;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    border-radius: 4px;
+    flex-shrink: 0;
 }
 
-.modal-contenido ul#lista-carrito li button:hover {
-    background-color: #ffebee;
-    border-radius: 4px;
+.modal-contenido ul#lista-carrito li button.btn-eliminar:hover {
+    color: #000000;
+    background-color: #f2f2f2;
+}
+
+.btn-carrito {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 2px;
+}
+
+.btn-carrito img {
+    width: 22px;
+    height: 22px;
+    margin: 0;
+} 
+
+@media (max-width: 768px) {
+    .btn-carrito {
+        position: absolute;
+        right: 1rem;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 10;
+    }
 }
 
 .menu-toggle {
@@ -1007,12 +1061,12 @@ footer {
     font-weight: 400;
 }
 
-/* --- CARRUSEL INFINITO --- */
+/* --- CARRUSEL TÁCTIL Y INFINITO --- */
 .carousel-container {
     width: 100%;
     overflow: hidden;
     margin: 0px;
-    padding: 2rem;
+    padding: 2rem 0;
     display: block;
     box-sizing: border-box;
 }
@@ -1021,23 +1075,35 @@ footer {
     display: flex;
     gap: 40px;
     width: max-content;
-    animation: scrollInfinite 30s linear infinite;
+    animation: scrollInfinite 40s linear infinite;
 }
 
-@keyframes scrollInfinite {
-    0% {
-        transform: translateX(0);
+/* En pantallas móviles, convertimos el contenedor externo en la zona de deslizamiento táctil */
+@media (max-width: 768px) {
+    .carousel-container {
+        overflow-x: auto;          /* Habilita el slide con el dedo aquí */
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory; /* Hace que las tarjetas se alineen suavemente al soltar */
     }
 
-    100% {
-        transform: translateX(-33.333%);
+    .carousel-track {
+        animation: none !important; /* Apaga el movimiento automático en móvil */
+        width: max-content;        
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    /* Ocultar barra de desplazamiento fea en móviles */
+    .carousel-container::-webkit-scrollbar {
+        display: none;
+    }
+    .carousel-container {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
     }
 }
 
-.carousel-container:hover .carousel-track {
-    animation-play-state: paused;
-}
-
+/* Tus estilos de las tarjetas */
 .card {
     flex: 0 0 auto;
     height: 550px;
@@ -1049,6 +1115,7 @@ footer {
     transition: transform 0.3s ease;
     z-index: 1;
     box-sizing: border-box;
+    scroll-snap-align: center; /* Alinea la tarjeta al centro al deslizar */
 }
 
 .card img {
@@ -1066,22 +1133,26 @@ footer {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
-.modal-contenido ul#lista-carrito li button.btn-eliminar {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #888;
-    transition: color 0.2s ease, background-color 0.2s ease;
-    border-radius: 4px;
+@keyframes scrollInfinite {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-33.333%);
+    }
 }
 
-.modal-contenido ul#lista-carrito li button.btn-eliminar:hover {
-    color: #000000;
-    background-color: #f2f2f2;
+@media (min-width: 769px) {
+    .carousel-container:hover .carousel-track {
+        animation-play-state: paused;
+    }
+}
+
+/* En PC se sigue pausando al pasar el cursor */
+@media (min-width: 769px) {
+    .carousel-container:hover .carousel-track {
+        animation-play-state: paused;
+    }
 }
 
 .color-hint {
@@ -1581,15 +1652,6 @@ footer {
         width: 100px !important;
     }
 
-    .btn-carrito {
-        position: absolute;
-        right: 1rem;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        z-index: 10;
-    }
-
     .navbar {
         display: contents;
     }
@@ -1678,10 +1740,6 @@ footer {
         width: 100%;
     }
 
-    #bajopedido h2 {
-        padding: 1rem;
-    }
-
     .nav-links a {
         margin-bottom: 20px;
         text-transform: capitalize;
@@ -1720,4 +1778,9 @@ footer {
     #bajopedido {
         padding: 1rem;
     }
+
+    #bajopedido h2 {
+        padding: 1rem;
+    }
+
 }
