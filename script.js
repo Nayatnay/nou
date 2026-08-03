@@ -612,8 +612,10 @@ function agregarDesdeDetalle() {
     }, 2500);
 }
 
-const COLECCION_ACTIVA_ID = "soccer";
-const NOMBRE_COLECCION_ACTIVA = "Soccer";
+/************* CAMBIAR COLECCION ACTIVA ********************/
+
+const COLECCION_ACTIVA_ID = "bitacora";
+const NOMBRE_COLECCION_ACTIVA = "Bitácora";
 
 document.addEventListener("DOMContentLoaded", function () {
     const gridActivo = document.getElementById('grid-coleccion-activa');
@@ -822,38 +824,44 @@ const nombresFranelas = {
         "7": "LA JUGADA",
         "8": "INGLATERRA",
     },
+    "bitacora": {
+        "0": "CUMBRES NEVADAS",
+        "1": "VZLA",
+        "2": "OTOÑO",
+        "3": "ZARZAL",
+    },
 };
 
 const preciosFranelas = {
     "holamundo": {
-        "0": "$12.00 USD",
-        "1": "$12.00 USD",
-        "2": "$12.00 USD",
-        "3": "$12.00 USD",
-        "4": "$12.00 USD",
-        "5": "$12.00 USD",
-        "6": "$12.00 USD",
+        "0": "$15.00 USD",
+        "1": "$15.00 USD",
+        "2": "$15.00 USD",
+        "3": "$15.00 USD",
+        "4": "$15.00 USD",
+        "5": "$15.00 USD",
+        "6": "$15.00 USD",
     },
     "mjlegacy": {
-        "0": "$16.00 USD",
-        "1": "$16.00 USD",
-        "2": "$16.00 USD",
-        "3": "$16.00 USD",
-        "4": "$16.00 USD",
+        "0": "$15.00 USD",
+        "1": "$15.00 USD",
+        "2": "$15.00 USD",
+        "3": "$15.00 USD",
+        "4": "$15.00 USD",
     },
     "mandalorian": {
-        "0": "$25.00 USD",
-        "1": "$25.00 USD",
-        "2": "$28.00 USD",
-        "3": "$30.00 USD",
+        "0": "$15.00 USD",
+        "1": "$15.00 USD",
+        "2": "$15.00 USD",
+        "3": "$15.00 USD",
         "4": "$15.00 USD",
-        "5": "$20.00 USD",
+        "5": "$15.00 USD",
     },
     "chess": {
         "0": "$25.00 USD",
         "1": "$25.00 USD",
-        "2": "$28.00 USD",
-        "3": "$30.00 USD",
+        "2": "$25.00 USD",
+        "3": "$25.00 USD",
     },
     "seriefine": {
         "0": "$15.00 USD",
@@ -863,14 +871,20 @@ const preciosFranelas = {
         "4": "$15.00 USD",
     },
     "soccer": {
-        "0": "$20.00 USD",
-        "1": "$20.00 USD",
-        "2": "$20.00 USD",
-        "3": "$20.00 USD",
-        "4": "$20.00 USD",
-        "5": "$20.00 USD",
-        "6": "$20.00 USD",
-        "7": "$20.00 USD",
-        "8": "$20.00 USD",
+        "0": "$17.00 USD",
+        "1": "$17.00 USD",
+        "2": "$17.00 USD",
+        "3": "$17.00 USD",
+        "4": "$17.00 USD",
+        "5": "$17.00 USD",
+        "6": "$17.00 USD",
+        "7": "$17.00 USD",
+        "8": "$17.00 USD",
+    },
+    "bitacora": {
+        "0": "$17.00 USD",
+        "1": "$17.00 USD",
+        "2": "$17.00 USD",
+        "3": "$17.00 USD",
     },
 };
