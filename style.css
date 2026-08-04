@@ -97,7 +97,8 @@ main {
 
 /* --- HERO SECTION --- */
 .hero {
-    height: clamp(50vh, 80vw, 80vh);
+    /* Ajustado para usar unidades de altura de vista (vh) consistentes en el clamp */
+    height: clamp(450px, 75vh, 750px);
     display: flex;
     align-items: center;
     justify-content: center;
