@@ -261,7 +261,7 @@ function agregarPersonalizado() {
     const talla = document.getElementById('talla-franela').value;
     const boton = document.querySelector('.btn-comprar');
 
-    const colorActualStr = typeof colorActual !== 'undefined' ? colorActual : 'blanco';
+    const colorActualStr = typeof colorActual !== 'undefined' ? colorActual : 'claro';
     const colorFormateado = colorActualStr.charAt(0).toUpperCase() + colorActualStr.slice(1);
 
     if (inputArchivo.files.length === 0) {
@@ -378,14 +378,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-let colorActual = 'blanco';
+let colorActual = 'claro';
 
 const mockups = {
-    blanco: {
+    claro: {
         frente: 'assets/mockup-base.png',
         espalda: 'assets/mockup-espalda.png'
     },
-    negro: {
+    oscuro: {
         frente: 'assets/mockup-base-b.png',
         espalda: 'assets/mockup-espalda-b.png'
     }
@@ -539,7 +539,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-let colorDetalleActual = 'blanco';
+let colorDetalleActual = 'claro';
 
 function cambiarColorDetalle(color) {
     colorDetalleActual = color;
@@ -744,8 +744,10 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function actualizarMedidasTalla() {
-    const selectTalla = document.getElementById("talla-franela");
+    // Busca el selector sin importar en qué página estés
+    const selectTalla = document.querySelector("#talla-detalle, #talla-franela");
     const infoMedidas = document.getElementById("info-medidas");
+
     if (!selectTalla || !infoMedidas) return;
 
     const tallaSeleccionada = selectTalla.value;

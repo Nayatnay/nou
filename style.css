@@ -306,7 +306,8 @@ main {
     .galeria-productos .producto {
         flex: 0 0 85%;
         width: 85%;
-        max-width: none; /* En pantallas muy chicas dejamos que tome el porcentaje libremente */
+        max-width: none;
+        /* En pantallas muy chicas dejamos que tome el porcentaje libremente */
     }
 }
 
@@ -392,30 +393,39 @@ main {
     text-align: center;
     background-color: #F1F1F1;
     color: #000000;
-    line-height: 1rem;
-    scroll-margin-top: 72px;
+    scroll-margin-top: 72px; /* Nota: Tenías width: 100% repetido dos veces, lo limpié */
 }
 
 #personalizadas h2 {
-    font-size: 3rem;
+    font-size: clamp(2rem, 8vw, 3rem);
     font-weight: 800;
-    line-height: 3.5rem;
+    line-height: 1.1;     /* <--- Compacta el espacio interno de las líneas del h2 */
+    margin-bottom: 0.2rem; /* <--- Margen externo reducido */
+    word-wrap: break-word;
+    box-sizing: border-box;
 }
 
 #personalizadas h3 {
-    font-size: 1.75rem;
+    font-size: clamp(1.2rem, 5vw, 1.75rem);
     color: #f1f1f1;
     background-color: #000000;
     display: inline-block;
-    padding: .2em 1em;
-    line-height: 1.5rem;
+    padding: .2rem 1rem;
     font-weight: 800;
+    line-height: 1.1;     /* <--- Compacta el espacio interno del h3 */
+    margin-top: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    word-wrap: break-word;
 }
 
 #personalizadas p {
-    font-size: 1rem;
-    margin-top: 12px;
-    line-height: .2rem;
+    /* Mínimo 0.9rem (legible en móvil), escala suave con la pantalla, máximo 1.1rem */
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    line-height: 1.5; /* Asegura una buena lectura en varias líneas */
+    max-width: 100%;
+    margin-top: 5px;
+    box-sizing: border-box;
 }
 
 /* 1. Estilos para pantallas grandes (Escritorio) */
@@ -426,13 +436,14 @@ main {
     grid-template-columns: 1fr 1fr;
     /* 2 columnas */
     gap: 40px;
-    background-color: #ffffff;
+    background: linear-gradient(to bottom, #e4e4e4, #bebebe);
     padding: 40px;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     align-items: center;
     box-sizing: border-box;
     width: 100%;
+    color: #00811e;
 }
 
 /* 2. Estilos para pantallas pequeñas (Móviles / Tablets) */
@@ -778,7 +789,7 @@ main {
     width: 22px;
     height: 22px;
     margin: 0;
-} 
+}
 
 @media (max-width: 768px) {
     .btn-carrito {
@@ -923,8 +934,6 @@ footer {
     position: relative;
     box-sizing: border-box;
     background-color: rgba(0, 0, 0, 0.90);
-    /* 0.85 es la transparencia (85%) */
-
 }
 
 .footer-content {
@@ -1000,7 +1009,9 @@ footer {
     justify-content: center;
     padding: 3rem 1rem;
     text-align: center;
-    background: linear-gradient(to right, #000000, #808080);
+    background-image:
+            linear-gradient(rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.02)),
+            url('assets/cinta.png'); 
     color: #f1f1f1;
     width: 100%;
     box-sizing: border-box;
@@ -1081,22 +1092,26 @@ footer {
 /* En pantallas móviles, convertimos el contenedor externo en la zona de deslizamiento táctil */
 @media (max-width: 768px) {
     .carousel-container {
-        overflow-x: auto;          /* Habilita el slide con el dedo aquí */
+        overflow-x: auto;
+        /* Habilita el slide con el dedo aquí */
         -webkit-overflow-scrolling: touch;
-        scroll-snap-type: x mandatory; /* Hace que las tarjetas se alineen suavemente al soltar */
+        scroll-snap-type: x mandatory;
+        /* Hace que las tarjetas se alineen suavemente al soltar */
     }
 
     .carousel-track {
-        animation: none !important; /* Apaga el movimiento automático en móvil */
-        width: max-content;        
+        animation: none !important;
+        /* Apaga el movimiento automático en móvil */
+        width: max-content;
         padding-left: 1rem;
         padding-right: 1rem;
     }
-    
+
     /* Ocultar barra de desplazamiento fea en móviles */
     .carousel-container::-webkit-scrollbar {
         display: none;
     }
+
     .carousel-container {
         -ms-overflow-style: none;
         scrollbar-width: none;
@@ -1108,6 +1123,7 @@ footer {
     flex: 0 0 auto;
     height: 550px;
     background-color: #e7e7e7;
+    border-radius: 5px;
     padding: 1rem;
     display: flex;
     justify-content: center;
@@ -1115,7 +1131,8 @@ footer {
     transition: transform 0.3s ease;
     z-index: 1;
     box-sizing: border-box;
-    scroll-snap-align: center; /* Alinea la tarjeta al centro al deslizar */
+    scroll-snap-align: center;
+    /* Alinea la tarjeta al centro al deslizar */
 }
 
 .card img {
@@ -1137,6 +1154,7 @@ footer {
     0% {
         transform: translateX(0);
     }
+
     100% {
         transform: translateX(-33.333%);
     }
@@ -1760,23 +1778,8 @@ footer {
         margin-top: 20px;
     }
 
-    #personalizadas h2 {
-        font-size: 2rem;
-        line-height: 2.5rem;
-    }
-
-    #personalizadas h3 {
-        font-size: 1.3rem;
-        line-height: 1.5rem;
-        padding: .1em .5em;
-    }
-
-    #personalizadas p {
-        font-size: .7rem;
-    }
-
     #bajopedido {
-        padding: 1rem;
+        padding: 2rem 0;
     }
 
     #bajopedido h2 {

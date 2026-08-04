@@ -63,18 +63,18 @@
                 <label>Color:</label>
                 <div class="color-options">
                     <button type="button" class="color-btn active"
-                        onclick="cambiarColorDetalle('blanco')">Blanco</button>
-                    <button type="button" class="color-btn" onclick="cambiarColorDetalle('negro')">Negro</button>
+                        onclick="cambiarColorDetalle('claro')">Claro</button>
+                    <button type="button" class="color-btn" onclick="cambiarColorDetalle('oscuro')">Oscuro</button>
                 </div>
                 <small class="color-hint">
-                    ¿Buscas otro color? Selecciona uno base y confírmanos tu tono ideal por WhatsApp.
+                    Selecciona un tono base y confírmanos tu color por WhatsApp.
                 </small>
             </div>
 
             <!-- Selector de Talla -->
             <div class="select-group">
                 <label for="talla-detalle">Talla:</label>
-                <select id="talla-detalle">
+                <select id="talla-detalle" onchange="actualizarMedidasTalla()">
                     <option value="2">2</option>
                     <option value="4">4</option>
                     <option value="6">6</option>
@@ -88,6 +88,11 @@
                     <option value="L">L</option>
                     <option value="XL">XL</option>
                 </select>
+
+                <!-- Línea de medidas dinámica -->
+                <small id="info-medidas" class="talla-hint" style="display: block; margin-top: 6px; color: #666;">
+                    Medidas: Ancho 50 cm | Largo 70 cm
+                </small>
             </div>
 
             <!-- Control de Cantidad (+ y -) -->
