@@ -35,7 +35,6 @@ function dibujarTodo() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(imgBase, 0, 0, canvas.width, canvas.height);
 
-    // Si hay una imagen de usuario cargada, la dibujamos utilizando la ubicación actual
     const ubicacion = document.getElementById('ubicacion') ? document.getElementById('ubicacion').value : "Centro Pecho";
     const selectTamano = document.getElementById('tamano');
     const tamanoSeleccionado = selectTamano ? selectTamano.value : "20cm";
@@ -207,7 +206,7 @@ function eliminar(i) {
 function enviarPedido() {
     if (carrito.length === 0) return;
 
-    // Generamos el texto de cada producto
+    // 1. Generamos el texto de cada producto
     const textosPedido = carrito.map(item => {
         if (typeof item === 'object' && item !== null) {
             if (item.id && item.id.startsWith("custom")) {
@@ -219,10 +218,20 @@ function enviarPedido() {
         return `• ${item}`;
     });
 
-    // Unimos los productos usando %0A (salto de línea) para que cada uno quede en su propia fila
     const mensajeFinal = "Hola, quiero pedir los siguientes productos:%0A" + textosPedido.join("%0A");
 
+    // 2. Vaciamos el carrito y actualizamos la interfaz antes de abrir WhatsApp
+    vaciarCarrito();
+
+    // 3. Abrimos WhatsApp
     window.open(`https://wa.me/584126067734?text=${mensajeFinal}`, '_blank');
+}
+
+function vaciarCarrito() {
+    carrito = [];
+    localStorage.removeItem('nouCarrito');
+    renderizarCarrito();
+    cerrarModal();
 }
 
 function abrirModal() {
@@ -270,7 +279,6 @@ function agregarPersonalizado() {
         return;
     }
 
-    // Forzamos la actualización visual para asegurarnos de que el canvas esté completo
     actualizarPrevisualizacion();
 
     setTimeout(() => {
@@ -291,7 +299,7 @@ function agregarPersonalizado() {
         agregarAlCarrito(itemPersonalizado);
 
         const textoOriginal = boton.innerHTML;
-        boton.innerHTML = 'Agregado al carrito';
+        boton.innerHTML = 'Agregando. Espere...';
         boton.classList.add('btn-exito');
         boton.disabled = true;
 
@@ -367,7 +375,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const track = document.querySelector('.carousel-track');
     if (!track) return;
 
-    // Solo clonamos si es pantalla grande (Escritorio)
     if (window.innerWidth > 768) {
         const originalCards = Array.from(track.children);
         for (let i = 0; i < 2; i++) {
@@ -581,7 +588,6 @@ function agregarDesdeDetalle() {
     const colorFormateado = colorDetalleActual.charAt(0).toUpperCase() + colorDetalleActual.slice(1);
     const precioTexto = document.getElementById('precio-producto') ? document.getElementById('precio-producto').innerText : '$25.00';
 
-    // Ruta de la miniatura de la colección
     const rutaImagenCatalogo = `assets/${coleccion}/${id}.webp`;
 
     const productoCatalogo = {
@@ -592,7 +598,7 @@ function agregarDesdeDetalle() {
         talla: talla,
         cantidad: parseInt(cantidad),
         precioTexto: precioTexto,
-        miniatura: rutaImagenCatalogo // ¡Aquí guardamos la foto real del catálogo!
+        miniatura: rutaImagenCatalogo
     };
 
     agregarAlCarrito(productoCatalogo);
@@ -601,7 +607,7 @@ function agregarDesdeDetalle() {
     if (!boton) return;
 
     const textoOriginal = boton.innerHTML;
-    boton.innerHTML = 'Agregado al carrito';
+    boton.innerHTML = 'Agregando. Espere...';
     boton.classList.add('btn-exito');
     boton.disabled = true;
 
@@ -744,7 +750,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function actualizarMedidasTalla() {
-    // Busca el selector sin importar en qué página estés
     const selectTalla = document.querySelector("#talla-detalle, #talla-franela");
     const infoMedidas = document.getElementById("info-medidas");
 

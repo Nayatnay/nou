@@ -156,12 +156,14 @@ main {
 
 #bajopedido {
     scroll-margin-top: 72px;
-    padding: 4rem;
+    padding: 0rem 4rem 4rem 2rem;
+    max-width: 1820px;
+    margin: 0 auto;
 }
 
 .titulos {
     font-weight: 800;
-    font-size: 2rem;
+    font-size: 1.5rem;
     line-height: 1.8rem;
 }
 
@@ -394,14 +396,17 @@ main {
     text-align: center;
     background-color: #F1F1F1;
     color: #000000;
-    scroll-margin-top: 72px; /* Nota: Tenías width: 100% repetido dos veces, lo limpié */
+    scroll-margin-top: 72px;
+    /* Nota: Tenías width: 100% repetido dos veces, lo limpié */
 }
 
 #personalizadas h2 {
     font-size: clamp(2rem, 8vw, 3rem);
     font-weight: 800;
-    line-height: 1.1;     /* <--- Compacta el espacio interno de las líneas del h2 */
-    margin-bottom: 0.2rem; /* <--- Margen externo reducido */
+    line-height: 1.1;
+    /* <--- Compacta el espacio interno de las líneas del h2 */
+    margin-bottom: 0.2rem;
+    /* <--- Margen externo reducido */
     word-wrap: break-word;
     box-sizing: border-box;
 }
@@ -413,7 +418,8 @@ main {
     display: inline-block;
     padding: .2rem 1rem;
     font-weight: 800;
-    line-height: 1.1;     /* <--- Compacta el espacio interno del h3 */
+    line-height: 1.1;
+    /* <--- Compacta el espacio interno del h3 */
     margin-top: 0;
     max-width: 100%;
     box-sizing: border-box;
@@ -423,7 +429,8 @@ main {
 #personalizadas p {
     /* Mínimo 0.9rem (legible en móvil), escala suave con la pantalla, máximo 1.1rem */
     font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-    line-height: 1.5; /* Asegura una buena lectura en varias líneas */
+    line-height: 1.5;
+    /* Asegura una buena lectura en varias líneas */
     max-width: 100%;
     margin-top: 5px;
     box-sizing: border-box;
@@ -434,10 +441,9 @@ main {
     max-width: 1100px;
     margin: 80px auto;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    /* 2 columnas */
+    grid-template-columns: 1fr 1fr;/* 2 columnas */
     gap: 40px;
-    background: linear-gradient(to bottom, #7e7e7e, #bebebe);
+    border: 1px solid rgb(189, 189, 189);
     padding: 40px;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
@@ -1011,8 +1017,8 @@ footer {
     padding: 3rem 1rem;
     text-align: center;
     background-image:
-            linear-gradient(rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.02)),
-            url('assets/cinta.png'); 
+        linear-gradient(rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.02)),
+        url('assets/cinta.png');
     color: #f1f1f1;
     width: 100%;
     box-sizing: border-box;
@@ -1078,9 +1084,10 @@ footer {
     width: 100%;
     overflow: hidden;
     margin: 0px;
-    padding: 2rem 0;
     display: block;
     box-sizing: border-box;
+    padding: 20px;
+    margin-top: 40px;
 }
 
 .carousel-track {
@@ -1097,6 +1104,7 @@ footer {
         /* Habilita el slide con el dedo aquí */
         -webkit-overflow-scrolling: touch;
         scroll-snap-type: x mandatory;
+        margin-top: 20px;
         /* Hace que las tarjetas se alineen suavemente al soltar */
     }
 
@@ -1123,9 +1131,7 @@ footer {
 .card {
     flex: 0 0 auto;
     height: 550px;
-    background-color: #e7e7e7;
     border-radius: 5px;
-    padding: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1140,6 +1146,7 @@ footer {
     height: 100%;
     width: auto;
     max-width: 100%;
+    border-radius: 10px;
     object-fit: contain;
     display: block;
     pointer-events: none;
@@ -1148,7 +1155,7 @@ footer {
 .card:hover {
     transform: scale(1.05);
     z-index: 10;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
 }
 
 @keyframes scrollInfinite {
@@ -1635,7 +1642,7 @@ footer {
     }
 
     .titulos {
-        font-size: 1.5rem;
+        font-size: 1rem;
     }
 
     .tope {
@@ -1779,12 +1786,8 @@ footer {
         margin-top: 20px;
     }
 
-    #bajopedido {
-        padding: 2rem 0;
-    }
-
-    #bajopedido h2 {
-        padding: 1rem;
+    #bajopedido{
+        padding: 3rem 1rem 0rem 1rem;
     }
 
 }
