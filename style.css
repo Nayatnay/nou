@@ -1016,7 +1016,7 @@ footer {
     align-items: center;
     justify-content: center;
     padding: 3rem 1rem;
-    background-color: #404140;
+    background-color: rgba(0, 0, 0, 0.90);
     text-align: center;
     color: white;
 }
