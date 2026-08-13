@@ -156,7 +156,7 @@ main {
 
 #bajopedido {
     scroll-margin-top: 72px;
-    padding: 0rem 4rem 4rem 2rem;
+    padding: 0rem 2rem 4rem 2rem;
     max-width: 1820px;
     margin: 0 auto;
 }
@@ -314,7 +314,6 @@ main {
     }
 }
 
-
 /* --- BOTONES GENERALES DEL CARRUSEL DE COLECCIONES --- */
 .carrusel-btn-prev,
 .carrusel-btn-next {
@@ -441,7 +440,8 @@ main {
     max-width: 1100px;
     margin: 80px auto;
     display: grid;
-    grid-template-columns: 1fr 1fr;/* 2 columnas */
+    grid-template-columns: 1fr 1fr;
+    /* 2 columnas */
     gap: 40px;
     border: 1px solid rgb(189, 189, 189);
     padding: 40px;
@@ -954,6 +954,7 @@ footer {
 }
 
 .social-links {
+    margin-top: 40px;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -989,7 +990,7 @@ footer {
 }
 
 .brand {
-    margin-top: 40px;
+    margin-top: 10px;
     text-align: center;
 }
 
@@ -1015,14 +1016,12 @@ footer {
     align-items: center;
     justify-content: center;
     padding: 3rem 1rem;
+    background-color: #404140;
     text-align: center;
-    background-image:
-        linear-gradient(rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.02)),
-        url('assets/cinta.png');
-    color: #f1f1f1;
-    width: 100%;
-    box-sizing: border-box;
+    color: white;
 }
+
+/* --- Adaptación para pantallas pequeñas (Móviles y Tablets) --- */
 
 .newsletter-section h3 {
     font-size: 2.5rem;
@@ -1086,7 +1085,7 @@ footer {
     margin: 0px;
     display: block;
     box-sizing: border-box;
-    padding: 20px;
+    padding: 30px;
     margin-top: 40px;
 }
 
@@ -1153,7 +1152,7 @@ footer {
 }
 
 .card:hover {
-    transform: scale(1.05);
+    transform: scale(1.04);
     z-index: 10;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
 }
@@ -1178,6 +1177,39 @@ footer {
 @media (min-width: 769px) {
     .carousel-container:hover .carousel-track {
         animation-play-state: paused;
+    }
+}
+
+/* cinta telas ***********************************************************/
+
+.cinta-telas {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    overflow: hidden;
+}
+
+.cinta-telas img {
+    width: 100%;
+    height: auto;
+    display: block;
+    content: url('assets/cinta-telas.png');
+    /* Imagen por defecto para PC */
+}
+
+/* --- Adaptación para Móviles (Pantallas menores a 768px) --- */
+@media (max-width: 768px) {
+    .cinta-telas img {
+        content: url('assets/cinta-telas-v.png');
+        width: 100%;
+        height: auto;
+        /* Mantiene toda la proporción sin recortar el título */
+        max-height: none;
+        /* Quitamos restricciones agresivas que puedan deformarla */
+        display: block;
     }
 }
 
@@ -1600,7 +1632,6 @@ footer {
     .newsletter-section h3 {
         font-size: 1.5rem;
     }
-
 }
 
 .imagen-con-coleccion {
@@ -1746,7 +1777,7 @@ footer {
     }
 
     .whatsapp-float {
-        bottom: 20px;
+        bottom: 60px;
         right: 20px;
         padding: 12px;
         border-radius: 50%;
@@ -1786,8 +1817,8 @@ footer {
         margin-top: 20px;
     }
 
-    #bajopedido{
-        padding: 3rem 1rem 0rem 1rem;
+    #bajopedido {
+        padding: 3rem 1rem;
     }
 
 }

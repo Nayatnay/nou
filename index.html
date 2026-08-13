@@ -72,7 +72,7 @@
                             onclick="verDetalle('holamundo', 6)">
                     </div>
                     <button class="prev" onclick="cambiarImagen('carrusel-holamundo', -1)">&#10094;</button>
-                    <button class="next" onclick="cambiarImagen('carrusel-holamundo', 1)">&#10095;</button>                    
+                    <button class="next" onclick="cambiarImagen('carrusel-holamundo', 1)">&#10095;</button>
                 </div>
 
                 <div class="producto" id="carrusel-mjlegacy">
@@ -190,6 +190,10 @@
             </div>
         </section>
 
+        <section class="cinta-telas">
+            <img src="" alt="Publicidad">
+        </section>
+
         <section class="newsletter-section">
             <h3>¿Te gusta lo que ves?</h3>
             <p>No te quedes fuera de nuestra próxima preventa. Únete a la comunidad Nou.</p>
@@ -290,7 +294,23 @@
 
     <footer>
         <div class="footer-content">
-
+            <!-- Nuevo Formulario de Suscripción -->
+            <div class="newsletter-section-footer">
+    
+                <div>
+                    <p>¡Suscríbete! y sé de los primeros en enterarse de nuestros lanzamientos</p>
+                </div>
+    
+                <form class="newsletter-form ajax-form" action="https://formspree.io/f/xbdnpazj" method="POST">
+                    <input type="email" name="email" placeholder="Tu correo electrónico" required>
+                    <button type="submit">Suscribirme</button>
+                </form>
+    
+                <div class="form-success-msg">
+                    ¡Gracias por suscribirte! Te mantendremos al tanto.
+                </div>
+            </div>
+    
             <div class="social-links">
                 <a href="https://instagram.com/somos.nou" target="_blank" rel="noopener noreferrer">
                     <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -305,23 +325,12 @@
                     </svg>
                 </a>
             </div>
-
-            <!-- Nuevo Formulario de Suscripción -->
-            <div class="newsletter-section-footer">
-                <form class="newsletter-form ajax-form" action="https://formspree.io/f/xbdnpazj" method="POST">
-                    <input type="email" name="email" placeholder="Tu correo electrónico" required>
-                    <button type="submit">Suscribirme</button>
-                </form>
-
-                <div class="form-success-msg">
-                    ¡Gracias por suscribirte! Te mantendremos al tanto.
-                </div>
-            </div>
-
+    
             <div class="brand">
-                <p class="copyright">© 2026 NOU. Tu web para vestir exclusividad en algodón 100%</p>
+                <p class="copyright">©2026 NOU</p>
+                <p>Tu web para vestir exclusividad en algodón 100%</p>
             </div>
-
+    
         </div>
     </footer>
 
