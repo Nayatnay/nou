@@ -73,6 +73,7 @@ function actualizarPrevisualizacion() {
     }
 
     dibujarTodoConTamano(pos, tamanoEnPixeles);
+    scrollToCustomizer();
 }
 
 function dibujarTodoConTamano(pos, tamano) {
@@ -409,6 +410,7 @@ function cambiarColor(color) {
         }
     });
     actualizarPrevisualizacion();
+    scrollToCustomizer();
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -766,6 +768,18 @@ function actualizarMedidasTalla() {
 document.addEventListener("DOMContentLoaded", () => {
     actualizarMedidasTalla();
 });
+
+
+// Función para desplazar la vista al inicio de la sección en cualquier pantalla
+function scrollToCustomizer() {
+    const customSection = document.querySelector('#personalizadas');
+    if (customSection) {
+        customSection.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+        });
+    }
+}
 
 const guiaMedidas = {
     "2": { ancho: "32 cm", largo: "42 cm" },

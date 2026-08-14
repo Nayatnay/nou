@@ -14,7 +14,7 @@
     <div class="tope">
         <div class="logo">
             <a href="index.html">
-                <img src="assets/logo.png" width="128px" alt="Logo de Nou">
+                <img src="assets/logo.png" width=128px" alt="Logo de Nou">
             </a>
         </div>
         <nav class="navbar">
@@ -23,6 +23,7 @@
                 <a href="index.html#colecciones">Colecciones</a>
                 <a href="index.html#bajopedido">Diseños bajo pedido</a>
                 <a href="index.html#personalizadas">Crea tu Nou</a>
+                <!-- He movido el botón carrito dentro de nav-links para móvil -->
             </div>
         </nav>
         <button class="btn-carrito" onclick="abrirModal()">
@@ -50,47 +51,7 @@
         </div>
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <!-- Nuevo Formulario de Suscripción -->
-            <div class="newsletter-section-footer">
-
-                <div>
-                    <p>¡Suscríbete! y sé de los primeros en enterarse de nuestros lanzamientos</p>
-                </div>
-
-                <form class="newsletter-form ajax-form" action="https://formspree.io/f/xbdnpazj" method="POST">
-                    <input type="email" name="email" placeholder="Tu correo electrónico" required>
-                    <button type="submit">Suscribirme</button>
-                </form>
-
-                <div class="form-success-msg">
-                    ¡Gracias por suscribirte! Te mantendremos al tanto.
-                </div>
-            </div>
-
-            <div class="social-links">
-                <a href="https://instagram.com/somos.nou" target="_blank" rel="noopener noreferrer">
-                    <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                    </svg>
-                </a>
-                <a href="https://tiktok.com/@somos.nou" target="_blank" rel="noopener noreferrer">
-                    <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
-                    </svg>
-                </a>
-            </div>
-
-            <div class="brand">
-                <p class="copyright">©2026 NOU</p>
-                <p>Tu web para vestir exclusividad en algodón 100%</p>
-            </div>
-
-        </div>
-    </footer>
+    <nou-footer></nou-footer>
 
     <!-- ICONO WHATSAPP -->
     <a href=https://wa.me/584126067734?text=Hola%20Nou,%20me%20gustaría%20más%20información. class="whatsapp-float"
@@ -142,7 +103,11 @@
         </a>
     </div>
 
+    <!-- Script del footer al final -->
+    <script src="footer.js"></script>
+
     <script src="script.js" defer></script>
+
 </body>
 
 </html>
