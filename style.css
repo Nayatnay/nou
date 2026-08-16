@@ -3,21 +3,20 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 html,
 body {
     width: 100%;
-    overflow-x: hidden;
-    /* Corregido de visible a hidden para evitar scroll horizontal no deseado */
+    overflow-x: hidden;    /* Corregido de visible a hidden para evitar scroll horizontal no deseado */
 }
 
 body {
     background-color: #f1f1f1;
     color: #000000;
     line-height: 1.6;
-    font-family: 'Poppins', 'Helvetica', 'Arial', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-weight: 400;
     margin: 0;
 }
@@ -27,6 +26,10 @@ main {
     max-width: 100%;
     margin: 0;
     padding: 0;
+}
+
+input, button, select {
+    font-family: inherit;
 }
 
 /* --- ENCABEZADO Y NAVEGACIÓN --- */
@@ -138,7 +141,6 @@ main {
     padding: 0.7rem 2rem;
     border-radius: 5px;
     background-color: white;
-    font-family: inherit;
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 0.09em;
@@ -165,6 +167,7 @@ main {
     font-weight: 800;
     font-size: 1.5rem;
     line-height: 1.8rem;
+    text-transform: uppercase;
 }
 
 /* --- CONTENEDOR GENERAL DE LA SECCIÓN COLECCIONES --- */
@@ -205,12 +208,8 @@ main {
     flex: 0 0 calc((100% - 100px) / 6);
     width: calc((100% - 100px) / 6);
     max-width: 270px;
-    background: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
     overflow: hidden;
     position: relative;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     /* NUEVO: Define el punto exacto donde se detiene el imán */
     scroll-snap-align: start;
 }
@@ -220,8 +219,7 @@ main {
     position: relative;
     width: 100%;
     height: 350px;
-    background-color: #ffffff;
-    padding: 20px;
+    background-color: transparent;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
@@ -230,10 +228,9 @@ main {
 
 .galeria-productos .imagenes-container img {
     position: absolute;
-    top: 20px;
-    left: 20px;
-    width: calc(100% - 40px);
-    height: calc(100% - 40px);
+   
+    width: calc(100% );
+    height: calc(100% );
     object-fit: contain;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -547,7 +544,6 @@ main {
     border-radius: 6px;
     cursor: pointer;
     font-size: 0.9rem;
-    font-family: inherit;
     transition: all 0.3s ease;
     box-sizing: border-box;
 }
@@ -776,7 +772,6 @@ main {
     background: transparent;
     border: none;
     cursor: pointer;
-    font-family: 'Inter', sans-serif;
     font-weight: 600;
     font-size: 1rem;
     padding: 2px;
@@ -869,8 +864,8 @@ main {
     /* Mantiene la separación compacta */
 }
 
-.info-producto h1 {
-    font-weight: 800;
+.info-producto h2 {
+    font-weight: 600;
     line-height: 1.1;
 }
 
@@ -896,7 +891,6 @@ main {
     padding: 0.8rem 1rem;
     border: 1px solid #333;
     border-radius: 5px;
-    font-family: inherit;
     font-size: 0.9rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -1120,7 +1114,6 @@ footer {
 .card {
     flex: 0 0 auto;
     height: 550px;
-    border-radius: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1247,7 +1240,6 @@ footer {
     padding: 0.5rem;
     border: 1px solid #000;
     background-color: transparent;
-    font-family: inherit;
     font-size: 0.9rem;
     text-transform: uppercase;
     cursor: pointer;
@@ -1286,7 +1278,6 @@ footer {
     text-align: center;
     border: 1px solid #000;
     background: transparent;
-    font-family: inherit;
     font-size: 0.95rem;
     padding: 0;
     box-sizing: border-box;
