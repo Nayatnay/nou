@@ -1006,7 +1006,7 @@ footer {
     align-items: center;
     justify-content: center;
     padding: 3rem 1rem;
-    background-color: rgba(0, 0, 0, 0.90);
+    background-color: #4b4b4b;
     text-align: center;
     color: white;
 }
@@ -1828,6 +1828,6 @@ footer {
     }
 
     .hero {
-        height: 50vh;        
+        height: 65vh;        
     }
 }
