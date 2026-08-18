@@ -158,7 +158,7 @@ input, button, select {
 
 #bajopedido {
     scroll-margin-top: 72px;
-    padding: 0rem 2rem 4rem 2rem;
+    padding: 2rem;
     max-width: 1820px;
     margin: 0 auto;
 }
@@ -166,7 +166,6 @@ input, button, select {
 .titulos {
     font-weight: 800;
     font-size: 1.5rem;
-    line-height: 1.8rem;
     text-transform: uppercase;
 }
 
@@ -176,7 +175,7 @@ input, button, select {
     width: 100%;
     max-width: 1820px;
     margin: 0 auto;
-    padding: 4rem 2rem;
+    padding: 2rem;
     box-sizing: border-box;
     overflow: hidden;
     scroll-margin-top: 72px;
@@ -187,33 +186,32 @@ input, button, select {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 20px;
+    gap: 20px; /* Separación normal y constante en todo momento */
     overflow-x: auto;
     scroll-behavior: smooth;
     scrollbar-width: none;
-    padding: 20px;
-    margin-top: 40px;
+    margin-top: 2rem;
     -webkit-overflow-scrolling: touch;
-    /* NUEVO: Hace que el desplazamiento se "imante" a cada tarjeta */
     scroll-snap-type: x mandatory;
 }
-
+  
 /* Ocultar barra de desplazamiento */
 .galeria-productos::-webkit-scrollbar {
     display: none;
 }
-
-/* --- CADA TARJETA DE COLECCIÓN (Base: 6 colecciones) --- */
+  
 .galeria-productos .producto {
-    flex: 0 0 calc((100% - 100px) / 6);
-    width: calc((100% - 100px) / 6);
+    /* flex-grow: 1 permite que crezcan fluidamente, flex-shrink: 0 evita que se aplasten, 
+       y calculamos un ancho base ideal para pantallas grandes */
+    flex: 0 0 calc((100% - (20px * 5)) / 6);
+    width: calc((100% - (20px * 5)) / 6);
+    min-width: 230px; /* Ancho mínimo para que la tarjeta nunca se vea apretada */
     max-width: 270px;
     overflow: hidden;
     position: relative;
-    /* NUEVO: Define el punto exacto donde se detiene el imán */
     scroll-snap-align: start;
 }
-
+  
 /* Contenedor interno de imágenes de cada colección */
 .galeria-productos .imagenes-container {
     position: relative;
@@ -225,79 +223,83 @@ input, button, select {
     justify-content: center;
     align-items: center;
 }
-
+  
 .galeria-productos .imagenes-container img {
-    position: absolute;
-   
-    width: calc(100% );
-    height: calc(100% );
+    position: absolute;   
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     opacity: 0;
     transition: opacity 0.3s ease;
     cursor: pointer;
 }
-
+  
 .galeria-productos .imagenes-container img.activa {
     opacity: 1;
 }
+  
+/* --- PUNTOS DE QUIEBRE FLUIDOS --- */
 
-/* Detiene la animación automática si el usuario pasa el mouse por encima */
-
-/* --- PUNTOS DE QUIEBRE PARA REDUCIR LA CANTIDAD DE COLECCIONES VISIBLES --- */
-
-/* Pantallas medianas-grandes: Muestra exactamente 5 colecciones */
+/* Pantallas grandes y Laptops (Más de 1200px): Mantiene el cálculo de 5 y 4 tarjetas fluidas */
 @media (max-width: 1600px) {
     .galeria-productos .producto {
-        flex: 0 0 calc((100% - 80px) / 5);
-        width: calc((100% - 80px) / 5);
+        flex: 0 0 calc((100% - (20px * 4)) / 5);
+        width: calc((100% - (20px * 4)) / 5);
         max-width: none;
     }
 }
-
-/* Laptops / Tablets grandes: Muestra exactamente 4 colecciones */
+  
 @media (max-width: 1300px) {
     .galeria-productos .producto {
-        flex: 0 0 calc((100% - 60px) / 4);
-        width: calc((100% - 60px) / 4);
+        flex: 0 0 calc((100% - (20px * 3)) / 4);
+        width: calc((100% - (20px * 3)) / 4);
     }
 }
+  
+/* --- TABLETS Y MENORES: Transición fluida exacta --- */
 
-/* Tablets: Muestra exactamente 3 colecciones */
+/* Tablets (hasta 992px): Muestra exactamente 3 tarjetas con su separación normal de 20px */
 @media (max-width: 992px) {
     .galeria-productos .producto {
-        flex: 0 0 calc((100% - 40px) / 3);
-        width: calc((100% - 40px) / 3);
+        flex: 0 0 calc((100% - (20px * 2)) / 3);
+        width: calc((100% - (20px * 2)) / 3);
+        max-width: none;
     }
 }
-
-
-/* --- Móviles grandes y tablets pequeñas (ej. hasta 768px) --- */
+  
+/* Móviles grandes (hasta 768px): Se acomodan fluidamente a 2 tarjetas */
 @media (max-width: 768px) {
-    #colecciones {
-        padding: 3rem 1rem 0rem 1rem;
-    }
-
     .galeria-productos {
-        justify-content: flex-start;
-        /* AQUÍ CORREGIMOS EL PUNTO 1: Padding izquierdo generoso para que la 1era no se pegue */
-        padding-left: 24px;
-        padding-right: 24px;
-        gap: 16px;
-        /* Espacio equilibrado entre tarjetas */
+        padding-left: 20px;
+        padding-right: 20px;
+        gap: 16px; /* Separación ligeramente más compacta solo en móviles */
+        margin-top: 20px;
     }
-
-    /* Ocultamos las flechas grandes en móviles */
+  
     .carrusel-btn-prev,
     .carrusel-btn-next {
         display: none !important;
     }
+  
+    .galeria-productos .producto {
+        flex: 0 0 calc((100% - 16px) / 2);
+        width: calc((100% - 16px) / 2);
+        min-width: 0; /* Permitimos que respiren de forma fluida */
+    }
+}
+  
+/* Móviles pequeños (hasta 480px): Muestra fluidamente 1 sola tarjeta ocupando el espacio */
+@media (max-width: 480px) {
+    .galeria-productos {
+        padding-left: 16px;
+        padding-right: 16px;
+        gap: 12px;
+    }
 
     .galeria-productos .producto {
-        /* AQUÍ CORREGIMOS EL PUNTO 2: Usamos flex flexible pero con un tope (max-width) 
-           para que en pantallas medianas/móviles grandes no se estiren de más */
-        flex: 0 0 78%;
-        width: 78%;
-        max-width: 300px;
+        flex: 0 0 82%; /* Deja ver un ligero Sanz de la siguiente tarjeta para incentivar el scroll */
+        width: 82%;
+        min-width: 0;
     }
 }
 
@@ -375,60 +377,61 @@ input, button, select {
 
 /* --- SECCIÓN PERSONALIZADA --- */
 #personalizadas {
-    padding: 2rem 1rem;
+    padding: 4rem 1rem;
     box-sizing: border-box;
     width: 100%;
     overflow: hidden;
-    text-align: center;
-    background-color: #F1F1F1;
     color: #000000;
     scroll-margin-top: 72px;
-    /* Nota: Tenías width: 100% repetido dos veces, lo limpié */
 }
 
-#personalizadas h2 {
-    font-size: clamp(2rem, 8vw, 3rem);
-    font-weight: 800;
-    line-height: 1.1;
-    /* <--- Compacta el espacio interno de las líneas del h2 */
-    margin-bottom: 0.2rem;
-    /* <--- Margen externo reducido */
-    word-wrap: break-word;
+.header-custom-personalizadas {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    max-width: 1100px; /* Mismo ancho que tu customizer-container */
+    margin: 0 auto 25px auto; /* Centrado horizontal y un pequeño espacio abajo antes del grid */
     box-sizing: border-box;
+    width: 100%;
 }
 
-#personalizadas h3 {
-    font-size: clamp(1.2rem, 5vw, 1.75rem);
-    color: #f1f1f1;
-    background-color: #000000;
-    display: inline-block;
-    padding: .2rem 1rem;
-    font-weight: 800;
-    line-height: 1.1;
-    /* <--- Compacta el espacio interno del h3 */
-    margin-top: 0;
-    max-width: 100%;
-    box-sizing: border-box;
-    word-wrap: break-word;
+/* Estilos para el contenedor circular del zorrito */
+.fox-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;      /* Un poco más grande que la imagen para que haya margen */
+    height: 60px;     /* Mismo ancho que alto para formar el círculo */
+    border-radius: 50%; /* ESTO CREA EL CÍRCULO */    
+    border: 2px solid #333;  /* Opcional: un borde visible para el círculo */
 }
 
-#personalizadas p {
-    /* Mínimo 0.9rem (legible en móvil), escala suave con la pantalla, máximo 1.1rem */
-    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-    line-height: 1.5;
-    /* Asegura una buena lectura en varias líneas */
-    max-width: 100%;
-    margin-top: 5px;
-    box-sizing: border-box;
+/* Estilos para la imagen dentro del círculo */
+.fox-container img {
+    width: 38px;      /* El tamaño original que pediste */
+    height: 38px;     /* Mismo alto para evitar deformaciones */
+    object-fit: contain; /* Asegura que la imagen no se corte mal */
+}
+
+/* Estilos de texto (mismos que antes) */
+.text-content h3 {
+    margin: 0 0 4px 0;
+    font-size: clamp(1.3rem, 5vw, 1.7rem);
+    line-height: 1;
+}
+
+.text-content p {
+    margin: 0;
+    font-size: clamp(.9rem, 2.5vw, 1.1rem);
+
 }
 
 /* 1. Estilos para pantallas grandes (Escritorio) */
 .customizer-container {
     max-width: 1100px;
-    margin: 80px auto;
+    margin: 0 auto; /* Cambiado de 80px a 0 auto para que el margen superior lo maneje el header o se pegue armónicamente */
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    /* 2 columnas */
+    grid-template-columns: 1fr 1fr; /* 2 columnas */
     gap: 40px;
     border: 1px solid rgb(189, 189, 189);
     padding: 40px;
@@ -437,7 +440,6 @@ input, button, select {
     align-items: center;
     box-sizing: border-box;
     width: 100%;
-    color: #00811e;
 }
 
 /* 2. Estilos para pantallas pequeñas (Móviles / Tablets) */
@@ -999,8 +1001,9 @@ footer {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: 4rem;
     padding: 3rem 1rem;
-    background-color: #4b4b4b;
+    background-color: rgba(0, 0, 0, 0.90);
     text-align: center;
     color: white;
 }
@@ -1069,8 +1072,8 @@ footer {
     margin: 0px;
     display: block;
     box-sizing: border-box;
-    padding: 30px;
-    margin-top: 40px;
+    padding: 20px;
+    margin-top: 20px;
 }
 
 .carousel-track {
@@ -1128,7 +1131,6 @@ footer {
     height: 100%;
     width: auto;
     max-width: 100%;
-    border-radius: 10px;
     object-fit: contain;
     display: block;
     pointer-events: none;
@@ -1175,24 +1177,18 @@ footer {
     overflow: hidden;
 }
 
-.cinta-telas img {
+.img-cinta {
     width: 100%;
     height: auto;
-    display: block;
-    content: url('assets/cinta-telas.png');
-    /* Imagen por defecto para PC */
+    display: block; /* Esto evita que la imagen se deforme si el contenedor cambia de tamaño */
+    object-fit: cover; 
 }
 
-/* --- Adaptación para Móviles (Pantallas menores a 768px) --- */
-@media (max-width: 768px) {
-    .cinta-telas img {
+/* --- Adaptación para Móviles --- */
+@media (max-width: 768px) {    
+    .img-cinta {
         content: url('assets/cinta-telas-v.png');
-        width: 100%;
-        height: auto;
-        /* Mantiene toda la proporción sin recortar el título */
-        max-height: none;
-        /* Quitamos restricciones agresivas que puedan deformarla */
-        display: block;
+        
     }
 }
 
@@ -1799,25 +1795,10 @@ footer {
         font-size: .75rem;
     }
 
-    .galeria-productos {
-        margin-top: 20px;
-    }
-
-    #bajopedido {
-        padding: 3rem 1rem;
-    }
-
 }
 
 /* --- Móviles muy pequeños (ej. hasta 480px) --- */
 @media (max-width: 480px) {
-    .galeria-productos .producto {
-        flex: 0 0 85%;
-        width: 85%;
-        max-width: none;
-        /* En pantallas muy chicas dejamos que tome el porcentaje libremente */
-    }
-
     .hero {
         height: 65vh;        
     }
