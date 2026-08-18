@@ -1187,7 +1187,7 @@ footer {
 /* --- Adaptación para Móviles --- */
 @media (max-width: 768px) {    
     .img-cinta {
-        content: url('assets/cinta-telas-v.png');
+        content: url('assets/cinta-telas-v.webp');
         
     }
 }
